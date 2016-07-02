@@ -1,19 +1,19 @@
 package com.model.bean;
 
-public class userBean {
+public class UserBean {
 	int id;
-	int dept;//²¿ÃÅ
 	String realname;
-	String account;//ÓÃ»§Ãû
+	String account;//è´¦æˆ·å
 	String password;
-	String role;//½ÇÉ«
-	String nickname;
-//	String avatar;
-	String gender;//ĞÔ±ğ
+	String dept;//éƒ¨é—¨
+	String role;//èŒä½
+	String gender;//æ€§åˆ«
 	String email;
 	String phone;
-	String ip;//×îºóµÇÂ¼ip
-	String lastLogin;//×îºóµÇÂ¼Ê±¼ä
-	String visits;//×Ü¹²µÇÂ½ÁË¼¸´Î
-	public userBean(){};
+	
+	String ip;//æœ€åç™»å½•ip
+	String lastLogin;//æœ€åç™»å½•æ—¶é—´
+	String visits;//æ€»å…±ç™»å½•æ¬¡æ•°
+	
+	public UserBean(){};
 }

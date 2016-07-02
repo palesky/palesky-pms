@@ -1,5 +1,5 @@
 package com.model.bean;
 
-public class projectManagerBean extends developerBean{
+public class ProjectManagerBean extends DeveloperBean{
 
 }
