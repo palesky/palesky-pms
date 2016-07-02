@@ -1,11 +1,11 @@
 package com.model.bean.user;
 
 public class UserBean {
-	int id;
+	String id;
 	String realname;
 	String account;//账户
 	String password;
-	String dept;//部门
+//	String dept;//部门
 	String role;//职位
 	String gender;//性别
 	String email;
@@ -17,11 +17,11 @@ public class UserBean {
 	
 	public UserBean(){}
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 
@@ -47,14 +47,6 @@ public class UserBean {
 
 	public void setPassword(String password) {
 		this.password = password;
-	}
-
-	public String getDept() {
-		return dept;
-	}
-
-	public void setDept(String dept) {
-		this.dept = dept;
 	}
 
 	public String getRole() {

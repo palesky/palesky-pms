@@ -31,16 +31,17 @@ public class LoginFilter implements Filter {
 
         String path = servletRequest.getRequestURI();
         UserBean user = (UserBean) session.getAttribute("user");
-        String id=String.valueOf(user.getId());
+//        String id=user.getId();
+        String id="";
         
         //登录页面无需过滤
-        if(path.indexOf("/login.jsp") > -1) {
+        if(path.indexOf("/login.html") > -1) {
             chain.doFilter(servletRequest, servletResponse);
             return;
         }
 
         if (id == null || "".equals(id)) {
-            servletResponse.sendRedirect("/login.jsp");
+            servletResponse.sendRedirect("/login.html");
         } else {
             chain.doFilter(request, response);
         }
