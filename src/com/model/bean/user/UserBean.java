@@ -1,9 +1,9 @@
-package com.model.bean;
+package com.model.bean.user;
 
 public class UserBean {
 	int id;
 	String realname;
-	String account;//账户名
+	String account;//账户
 	String password;
 	String dept;//部门
 	String role;//职位
@@ -11,8 +11,8 @@ public class UserBean {
 	String email;
 	String phone;
 	
-	String ip;//最后登录ip
-	String lastLogin;//最后登录时间
+	String ip;
+	String lastLogin;
 	String visits;//总共登录次数
 	
 	public UserBean(){}

@@ -1,0 +1,5 @@
+package com.model.bean;
+
+public class ProjectBean {
+
+}
