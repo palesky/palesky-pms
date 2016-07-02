@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.model.bean.UserBean;
+
 public class LoginFilter implements Filter {
 
     @Override
@@ -28,7 +30,8 @@ public class LoginFilter implements Filter {
         HttpSession session = servletRequest.getSession();
 
         String path = servletRequest.getRequestURI();
-        String empId = (String) session.getAttribute("empId");
+        UserBean user = (UserBean) session.getAttribute("user");
+        String id=String.valueOf(user.getId());
         
         //登录页面无需过滤
         if(path.indexOf("/login.jsp") > -1) {
@@ -36,8 +39,8 @@ public class LoginFilter implements Filter {
             return;
         }
 
-        if (empId == null || "".equals(empId)) {
-            servletResponse.sendRedirect("/JingXing_OA/login.jsp");
+        if (id == null || "".equals(id)) {
+            servletResponse.sendRedirect("/login.jsp");
         } else {
             chain.doFilter(request, response);
         }
