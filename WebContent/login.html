@@ -14,12 +14,13 @@
 <script type="text/javascript">
     function check(){
         var myForm=document.getElementById("form");
-        var username=myForm[0].value;
-        if(myForm[1].value==""){
-            alert("用户名不能为空");
+        if(myForm[0].value==""){
+            myForm[0].placeholder="账户名不能为空";
+            myForm[0].focus();
             return false;
-        }else if(myForm[2].value==""){
-            alert("密码不能为空");
+        }else if(myForm[1].value==""){
+             myForm[1].placeholder="密码不能为空";
+            myForm[1].focus();
             return false;
         }
         return true;
