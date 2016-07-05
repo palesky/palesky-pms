@@ -1,4 +1,4 @@
-package com.model.bean.user;
+package com.model.bean;
 
 public class UserBean {
 	String id;

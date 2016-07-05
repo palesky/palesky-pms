@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.model.bean.user.UserBean;
+import com.model.bean.UserBean;
 import com.model.dao.UserDao;
 
 /**
@@ -42,19 +42,18 @@ public class LoginServlet extends HttpServlet {
 		UserBean user = d.getUser(account);
 		System.out.println(user.toString());
 		if (user == null||user.getPassword()==null) {
-			System.out.println("不存在该用户");
+			System.out.println("鏃犺鐢ㄦ埛");
 			response.sendRedirect("login.html");
 			return;
 		}
 		if (user.getPassword().equals(password)) {
-			// 密码正确
-			System.out.println("密码正确");
+			System.out.println("楠岃瘉閫氳繃");
 			HttpSession session = request.getSession(true);
 			session.setAttribute("user", user);
 			response.sendRedirect("index.jsp");
 			return;
 		} else {
-			System.out.println("密码错误");
+			System.out.println("瀵嗙爜閿欒");
 			response.sendRedirect("login.html");
 			return;
 		}

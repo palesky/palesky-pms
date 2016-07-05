@@ -1,9 +1,5 @@
 eclipse.preferences.version=1
 encoding//src/com/filter/LoginFilter.java=UTF-8
-encoding//src/com/model/bean/user/DeveloperBean.java=UTF-8
-encoding//src/com/model/bean/user/ProductManagerBean.java=UTF-8
-encoding//src/com/model/bean/user/ProjectManagerBean.java=UTF-8
-encoding//src/com/model/bean/user/TestManagerBean.java=UTF-8
-encoding//src/com/model/bean/user/TesterBean.java=UTF-8
-encoding//src/com/model/bean/user/UserBean.java=UTF-8
+encoding//src/com/model/bean/UserBean.java=UTF-8
 encoding//src/com/model/dao/BaseDao.java=UTF-8
+encoding/<project>=UTF-8
