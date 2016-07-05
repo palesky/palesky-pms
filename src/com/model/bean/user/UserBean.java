@@ -14,6 +14,8 @@ public class UserBean {
 	String ip;
 	String lastLogin;
 	String visits;//总共登录次数
+	String privilege;
+	String belongTo;
 	
 	public UserBean(){}
 
@@ -103,6 +105,30 @@ public class UserBean {
 
 	public void setVisits(String visits) {
 		this.visits = visits;
+	}
+
+	public String getPrivilege() {
+		return privilege;
+	}
+
+	public void setPrivilege(String privilege) {
+		this.privilege = privilege;
+	}
+
+	@Override
+	public String toString() {
+		return "UserBean [id=" + id + ", realname=" + realname + ", account=" + account + ", password=" + password
+				+ ", role=" + role + ", gender=" + gender + ", email=" + email + ", phone=" + phone + ", ip=" + ip
+				+ ", lastLogin=" + lastLogin + ", visits=" + visits + ", privilege=" + privilege + ", belongTo="
+				+ belongTo + "]";
+	}
+
+	public String getBelongTo() {
+		return belongTo;
+	}
+
+	public void setBelongTo(String belongTo) {
+		this.belongTo = belongTo;
 	};
 	
 }
