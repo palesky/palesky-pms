@@ -8,7 +8,13 @@ import java.util.ArrayList;
 
 import com.model.bean.UserBean;
 
+/**
+ * findByKeyword 未测试
+ * @author xj
+ *
+ */
 public class UserDao extends BaseDao {
+	
 	public ArrayList<UserBean> findAllUserBean() {
 		ArrayList<UserBean> list = new ArrayList<UserBean>();
 		String sql = "SELECT * FROM user ";
@@ -116,7 +122,7 @@ public class UserDao extends BaseDao {
 	}
 
 	/**
-	 *已测试
+	 * 已测试
 	 * 
 	 * @param user
 	 * @return
@@ -147,13 +153,11 @@ public class UserDao extends BaseDao {
 	}
 
 	/**
-	 * 测试未通过，待修改
-	 * d.findByKeyword("account", "a")；通过
-	 * 和
-	 * d.findByKeyword("account", "p")；不通过
-	 * 预期结果不同
+	 * 测试未通过，待修改 d.findByKeyword("account", "a")；通过 和 d.findByKeyword("account",
+	 * "p")；不通过 预期结果不同
 	 * 
 	 * 通过关键词进行模糊搜索
+	 * 
 	 * @param key
 	 * @param value
 	 * @return
