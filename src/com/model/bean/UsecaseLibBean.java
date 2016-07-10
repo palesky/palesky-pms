@@ -1,10 +1,12 @@
 package com.model.bean;
 
 public class UsecaseLibBean {
+	
 	String id;
 	String usecaseLib_type;
 	String createdBy;
 	String createdDate;
+	
 	public String getId() {
 		return id;
 	}

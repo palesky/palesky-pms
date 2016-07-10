@@ -1,6 +1,8 @@
 package com.model.dao;
 
 import java.sql.Connection;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,13 +12,16 @@ import com.model.bean.UsecaseLibBean;
 /**
  * 未测试
  * @author xj
+ * 7/10 第一次测试 lk 
  *
  */
 public class UsecaseLibDao extends BaseDao{
-	public ArrayList<UsecaseLibBean> findAllUsecaseLibBean() {
+	
+	public ArrayList<UsecaseLibBean> findAllUsecaseLib() {
 		ArrayList<UsecaseLibBean> list = new ArrayList<UsecaseLibBean>();
 		String sql = "SELECT * FROM usecaseLib ";
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = dataSource.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			ResultSet rst = pstmt.executeQuery();
 			while (rst.next()) {
 				UsecaseLibBean usecaseLib = new UsecaseLibBean();
@@ -24,6 +29,7 @@ public class UsecaseLibDao extends BaseDao{
 				usecaseLib.setUsecaseLib_type(rst.getString("usecaseLibId"));
 				usecaseLib.setCreatedBy(rst.getString("CreatedBy"));
 				usecaseLib.setCreatedDate(rst.getString("createdDate"));
+				list.add(usecaseLib);
 			}
 			return list;
 		} catch (SQLException e) {
@@ -32,13 +38,18 @@ public class UsecaseLibDao extends BaseDao{
 		}
 	}
 	
-	public boolean addUser(UsecaseLibBean usecaseLib) {
+	public boolean addUsecaseLib(UsecaseLibBean usecaseLib) {
+		
+		Date d=new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
+		String dateNowStr =sdf.format(d);
+		
 		String sql = "INSERT INTO usecaseLib(id,usecaseLib_type,createdBy,createdDate)VALUES(?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, usecaseLib.getId());
 			pstmt.setString(2, usecaseLib.getUsecaseLib_type());
 			pstmt.setString(3, usecaseLib.getCreatedBy());
-			pstmt.setString(4, usecaseLib.getCreatedDate());
+			pstmt.setString(4, dateNowStr);
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {
@@ -47,15 +58,11 @@ public class UsecaseLibDao extends BaseDao{
 		}
 	}
 	
-	/**
-	 * 已测试 删除用户 此处应已经做过权限验证
-	 * 
-	 * @param account
-	 * @return
-	 */
-	public boolean deleteUser(String id) {
+	
+	public boolean deleteUsecaseLib(String id) {
 		String sql = "DELETE FROM usecaseLib where id=?";
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
 			return true;
@@ -65,20 +72,14 @@ public class UsecaseLibDao extends BaseDao{
 		}
 	}
 	
-	/**
-	 * 已测试
-	 * 
-	 * @param user
-	 * @return
-	 */
-	public boolean updateUser(UsecaseLibBean usecaseLib) {
-		String sql = "update usecaseLib set id=?,usecaseLib_type=?,createdBy=?,createdDate=? where id=?";
+	//用例类库的  元素 因为基本不改变的原因 
+	//这个更新的功能基本用不上
+	public boolean updateUsecaseLib(UsecaseLibBean usecaseLib) {
+		String sql = "update usecaseLib set id=?,usecaseLib_type=? where id=?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, usecaseLib.getId());
 			pstmt.setString(2, usecaseLib.getUsecaseLib_type());
-			pstmt.setString(3, usecaseLib.getCreatedBy());
-			pstmt.setString(4, usecaseLib.getCreatedDate());
-			pstmt.setString(5, usecaseLib.getId());
+			pstmt.setString(3, usecaseLib.getId());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {
