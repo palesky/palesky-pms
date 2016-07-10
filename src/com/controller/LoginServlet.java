@@ -34,7 +34,8 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		request.setCharacterEncoding("utf-8");
-
+		request.getSession().removeAttribute("username");//由于粘性表单，所以在sessoin里存了username，所以要删除
+		
 		String account = request.getParameter("username");
 		String password = request.getParameter("password");
 
@@ -43,7 +44,7 @@ public class LoginServlet extends HttpServlet {
 		System.out.println(user.toString());
 		if (user == null||user.getPassword()==null) {
 			System.out.println("无该用户");
-			response.sendRedirect("login.html");
+			response.sendRedirect("login.jsp");
 			return;
 		}
 		if (user.getPassword().equals(password)) {
@@ -53,8 +54,9 @@ public class LoginServlet extends HttpServlet {
 			response.sendRedirect("index.jsp");
 			return;
 		} else {
+			request.getSession().setAttribute("username", account);
 			System.out.println("密码错误");
-			response.sendRedirect("login.html");
+			response.sendRedirect("login.jsp");
 			return;
 		}
 	}

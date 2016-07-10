@@ -1,4 +1,6 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <!DOCTYPE html>
 <html lang="en" class="no-js">
 <head>
 <meta charset="UTF-8" />
@@ -42,7 +44,7 @@
 			<form id="form" method="post" action="LoginServlet.do">
 				<div>
 					<input type="text" autocomplete="off" placeholder="账户名"
-						class="username" name="username">
+						class="username" name="username" value="${username}">
 				</div>
 				<div>
 					<input type="password" onpaste="return false"
