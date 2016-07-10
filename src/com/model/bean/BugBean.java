@@ -1,6 +1,7 @@
 package com.model.bean;
 
 public class BugBean {
+	String id;
 	String name;
 	String status;
 	String bug_type;
@@ -10,8 +11,18 @@ public class BugBean {
 	String foundDate;
 	String priority;
 	String steps;
+	//usecaseId 该bug 是通过该用例测出来的
+	//如果usecaseId为空  说明该id是 自主发现的
 	String usecaseId;
 	String task_testerId;
+	
+	public String getId(){
+		return id;
+	}
+	public void setId(String id){
+		this.id=id;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -80,7 +91,7 @@ public class BugBean {
 	}
 	@Override
 	public String toString() {
-		return "BugBean [name=" + name + ", status=" + status + ", bug_type=" + bug_type + ", os=" + os + ", browser="
+		return "BugBean [id="+ id +" , name=" + name + ", status=" + status + ", bug_type=" + bug_type + ", os=" + os + ", browser="
 				+ browser + ", foundBy=" + foundBy + ", foundDate=" + foundDate + ", priority=" + priority + ", steps="
 				+ steps + ", usecaseId=" + usecaseId + ", task_testerId=" + task_testerId + "]";
 	}
