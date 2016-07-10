@@ -6,15 +6,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import com.model.bean.DemandBean;
 
 /**
  * 未测试
  * @author xj
+ * demand 共有10项数据
+ * 7/10 合理性修改
  *
  */
 public class DemandDao extends BaseDao{
-	public ArrayList<DemandBean> findAllDemandBean() {
+	
+	public ArrayList<DemandBean> findAllDemand() {
 		ArrayList<DemandBean> list = new ArrayList<DemandBean>();
 		String sql = "SELECT * FROM demand ";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -31,6 +37,7 @@ public class DemandDao extends BaseDao{
 				demand.setLastEditedDate(rst.getString("lastEditedDate"));
 				demand.setConfirmedBy(rst.getString("confirmedBy"));
 				demand.setProject_id(rst.getString("project_id"));
+				list.add(demand);
 				System.out.println(demand.toString());
 			}
 			return list;
@@ -39,11 +46,12 @@ public class DemandDao extends BaseDao{
 			return null;
 		}
 	}
-
-	public DemandBean getUser(String name) {
-		String sql = "SELECT * FROM demand where name=?";
+    
+	//通过id获取需求信息
+	public DemandBean getDemand(String id) {
+		String sql = "SELECT * FROM demand where id=?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, name);
+			pstmt.setString(1, id);
 			ResultSet rst = pstmt.executeQuery();
 			DemandBean demand = new DemandBean();
 			while (rst.next()) {
@@ -66,23 +74,23 @@ public class DemandDao extends BaseDao{
 		}
 	}
 
-	/**
-	 * 已测试
-	 * 
-	 * @param user
-	 * @return
-	 */
-	public boolean addUser(DemandBean demand) {
+	
+	public boolean addDemand(DemandBean demand) {
+		Date d=new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
+		String dateNowStr =sdf.format(d);
+		
 		String sql = "INSERT INTO demand(id,name,status,createdBy,createdDate,endDate,explain,lastEditedDate,confirmedBy,project_id)VALUES(?,?,?,?,?,?,?,?,?,?)";
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, demand.getId());
 			pstmt.setString(2, demand.getName());
 			pstmt.setString(3, demand.getStatus());
 			pstmt.setString(4, demand.getCreatedBy());
-			pstmt.setString(5, demand.getCreatedDate());
+			pstmt.setString(5, dateNowStr);
 			pstmt.setString(6, demand.getEndDate());
 			pstmt.setString(7, demand.getExplain());
-			pstmt.setString(8, demand.getLastEditedDate());
+			pstmt.setString(8, dateNowStr);
 			pstmt.setString(9, demand.getConfirmedBy());
 			pstmt.setString(10, demand.getProject_id());
 			pstmt.executeUpdate();
@@ -93,15 +101,11 @@ public class DemandDao extends BaseDao{
 		}
 	}
 
-	/**
-	 * 已测试 删除用户 此处应已经做过权限验证
-	 * 
-	 * @param account
-	 * @return
-	 */
-	public boolean deleteUser(String id) {
+	
+	public boolean deleteDemand(String id) {
 		String sql = "DELETE FROM demand where id=?";
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, id);
 			pstmt.executeUpdate();
 			return true;
@@ -111,26 +115,22 @@ public class DemandDao extends BaseDao{
 		}
 	}
 
-	/**
-	 * 已测试
-	 * 
-	 * @param user
-	 * @return
-	 */
-	public boolean updateUser(DemandBean demand) {
-		String sql = "update demand set id=?,name=?,status=?,createdBy=?,createdDate=?,endDate=?,explain=?,lastEditedDate=?,confirmedBy=?,project_id=? where id=?";
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	
+	public boolean updateDemand(DemandBean demand) {
+		Date d=new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
+		String dateNowStr =sdf.format(d);
+		String sql = "update demand set id=?,name=?,status=?,endDate=?,explain=?,lastEditedDate=?,confirmedBy=? where id=?";
+		try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, demand.getId());
 			pstmt.setString(2, demand.getName());
 			pstmt.setString(3, demand.getStatus());
-			pstmt.setString(4, demand.getCreatedBy());
-			pstmt.setString(5, demand.getCreatedDate());
-			pstmt.setString(6, demand.getEndDate());
-			pstmt.setString(7, demand.getExplain());
-			pstmt.setString(8, demand.getLastEditedDate());
-			pstmt.setString(9, demand.getConfirmedBy());
-			pstmt.setString(10, demand.getProject_id());
-			pstmt.setString(11, demand.getId());
+			pstmt.setString(4, demand.getEndDate());
+			pstmt.setString(5, demand.getExplain());
+			pstmt.setString(6, dateNowStr);
+			pstmt.setString(7, demand.getConfirmedBy());
+			pstmt.setString(8, demand.getId());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {

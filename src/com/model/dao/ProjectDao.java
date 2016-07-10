@@ -1,6 +1,9 @@
 package com.model.dao;
 
 import java.sql.Connection;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,10 +16,12 @@ import com.model.bean.ProjectBean;
  *
  */
 public class ProjectDao extends BaseDao{
-	public ArrayList<ProjectBean> findAllProjectBean() {
+	
+	public ArrayList<ProjectBean> findAllProject() {
 		ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
 		String sql = "SELECT * FROM project ";
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			ResultSet rst = pstmt.executeQuery();
 			while (rst.next()) {
 				ProjectBean project = new ProjectBean();
@@ -31,6 +36,7 @@ public class ProjectDao extends BaseDao{
 				project.setConfirmedBy(rst.getString("confirmedBy"));
 				project.setProd_id(rst.getString("prod_id"));
 				System.out.println(project.toString());
+				list.add(project);
 			}
 			return list;
 		} catch (SQLException e) {
@@ -38,11 +44,11 @@ public class ProjectDao extends BaseDao{
 			return null;
 		}
 	}
-
-	public ProjectBean getUser(String name) {
-		String sql = "SELECT * FROM project where name=?";
+    //通过id获取 项目信息
+	public ProjectBean getProject(String id) {
+		String sql = "SELECT * FROM project where id=?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, name);
+			pstmt.setString(1, id);
 			ResultSet rst = pstmt.executeQuery();
 			ProjectBean project = new ProjectBean();
 			while (rst.next()) {
@@ -65,20 +71,19 @@ public class ProjectDao extends BaseDao{
 		}
 	}
 
-	/**
-	 * 已测试
-	 * 
-	 * @param user
-	 * @return
-	 */
-	public boolean addUser(ProjectBean project) {
+	
+	public boolean addProject(ProjectBean project) {
+		Date d=new Date();
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
+		String dateNowStr =sdf.format(d);
 		String sql = "INSERT INTO project(id,name,status,createdBy,createDate,endDate,explain,team,confirmedBy,prod_id)VALUES(?,?,?,?,?,?,?,?,?,?)";
-		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+		try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, project.getId());
 			pstmt.setString(2, project.getName());
 			pstmt.setString(3, project.getStatus());
 			pstmt.setString(4, project.getCreatedBy());
-			pstmt.setString(5, project.getCreateDate());
+			pstmt.setString(5, dateNowStr);
 			pstmt.setString(6, project.getEndDate());
 			pstmt.setString(7, project.getExplain());
 			pstmt.setString(8, project.getTeam());
@@ -92,13 +97,8 @@ public class ProjectDao extends BaseDao{
 		}
 	}
 
-	/**
-	 * 已测试 删除用户 此处应已经做过权限验证
-	 * 
-	 * @param account
-	 * @return
-	 */
-	public boolean deleteUser(String id) {
+	
+	public boolean deleteProject(String id) {
 		String sql = "DELETE FROM project where id=?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, id);
@@ -110,26 +110,22 @@ public class ProjectDao extends BaseDao{
 		}
 	}
 
-	/**
-	 * 已测试
+	//更新产品信息
+	/*
+	 * 7/10      删除修改id,创建者,创建时间等功能    lk
 	 * 
-	 * @param user
-	 * @return
-	 */
-	public boolean updateUser(ProjectBean project) {
-		String sql = "update project set id=?,name=?,status=?,createdBy=?,createDate=?,endDate=?,explain=?,team=?,confirmedBy=?,prod_id=? where id=?";
+	 * */
+	public boolean updateProject(ProjectBean project) {
+		
+		String sql = "update project set id=?,name=?,status=?,endDate=?,explain=?,team=?,confirmedBy=? where id=?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, project.getId());
 			pstmt.setString(2, project.getName());
 			pstmt.setString(3, project.getStatus());
-			pstmt.setString(4, project.getCreatedBy());
-			pstmt.setString(5, project.getCreateDate());
-			pstmt.setString(6, project.getEndDate());
-			pstmt.setString(7, project.getExplain());
-			pstmt.setString(8, project.getTeam());
-			pstmt.setString(9, project.getConfirmedBy());
-			pstmt.setString(10, project.getProd_id());
-			pstmt.setString(11, project.getId());
+			pstmt.setString(4, project.getEndDate());
+			pstmt.setString(5, project.getExplain());
+			pstmt.setString(6, project.getTeam());
+			pstmt.setString(7, project.getConfirmedBy());
+			pstmt.setString(8, project.getId());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {

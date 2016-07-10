@@ -13,7 +13,7 @@ public class UserBean {
 	
 	String ip;
 	String lastLogin;
-	String visits;//总共登录次数
+	int visits;;//总共登录次数
 	String privilege;
 	String belongTo;
 	
@@ -99,11 +99,11 @@ public class UserBean {
 		this.lastLogin = lastLogin;
 	}
 
-	public String getVisits() {
+	public int getVisits() {
 		return visits;
 	}
 
-	public void setVisits(String visits) {
+	public void setVisits(int visits) {
 		this.visits = visits;
 	}
 
