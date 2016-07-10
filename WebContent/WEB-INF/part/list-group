@@ -1,0 +1,19 @@
+<!-- 待测试 -->
+<div class="row">
+	<div class="panel panel-default">
+  		<div class="panel-heading">${list_group_title}</div>
+		<ul class="list-group">
+  			<c:if test="sessionScope.itemList!=null}">
+  				<c:forEach var="item" items="sessionScope.itemList">
+	  			<li class="list-group-item">
+	    		<span class="badge">${item.numOfBug}</span>
+	   			 ${item.name}:${item.explain} <a href="./product?${item.id}">详情</a>
+	  			</li>
+	  			</c:forEach>
+  			</c:if>	
+  			<c:if test="sessionScope.itemList==null}">
+  				产品列表为空
+  			</c:if>	
+		</ul>
+	</div>
+</div>
