@@ -1,5 +1,12 @@
-<!-- 待测试 -->
+<!-- 待测试 7/10 -xjy -->
+<!-- 存在问题 c:if 无法判断itemList是否为空 -xjy -->
+<!-- list_group_title 传列表名 -->
+<!-- sessionScope.itemList 传ArrayList<object> -->
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <div class="row">
+<div class="col-lg-12">
 	<div class="panel panel-default">
   		<div class="panel-heading">${list_group_title}</div>
 		<ul class="list-group">
@@ -15,5 +22,6 @@
   				产品列表为空
   			</c:if>	
 		</ul>
+	</div>
 	</div>
 </div>

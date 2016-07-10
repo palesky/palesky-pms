@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -59,23 +59,19 @@
 	<!--/.sidebar-->
 
 	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
-		<div class="row">
-			<ol class="breadcrumb">
-				<li><a href="#"><svg class="glyph stroked home">
-							<use xmlns:xlink="http://www.w3.org/1999/xlink"
-								xlink:href="#stroked-home"></use></svg></a></li>
-				<li class="active">Icons</li>
-			</ol>
-		</div>
+	
+		<%@include file="./WEB-INF/part/breadcrumb.html"%>
+		
 		<div class="row">
 			<div class="col-lg-12">
 				<h1 class="page-header">Product 产品</h1>
 			</div>
 		</div>
-		<%@include file="./WEB-INF/part/list-group"%>
+		
+		<%@include file="./WEB-INF/part/list-group.html"%>
 		<c:if test="sessionScope.itemList==null}">
   				产品列表为空
-  			</c:if>	
+  		</c:if>
 	</div>
 
 	<script src="js/jquery-1.11.1.min.js"></script>
