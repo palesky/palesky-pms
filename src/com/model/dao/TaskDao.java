@@ -78,7 +78,7 @@ public class TaskDao extends BaseDao{
     //---------------------------------------------------------------------------
     public ArrayList<BugBean> findBugByTask(String id){
     	ArrayList<BugBean> list=new ArrayList<BugBean>();
-    	String sql="select * from bug where task_testerId in(select id from task_tester where id in(select id from task where=? ))";
+    	String sql="select * from bug where task_testerId in(select id from task_tester where taskId =?)";
     	try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
     		pstmt.setString(1, id);
