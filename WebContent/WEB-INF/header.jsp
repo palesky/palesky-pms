@@ -55,7 +55,8 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">账户名</label>
 						<div class="col-sm-10">
-							<p class="form-control-static">${user.account}</p>
+							<input type="text" class="form-control" placeholder="请输入账户名"
+								name="account" value="${user.account}">
 						</div>
 					</div>
 					<div class="form-group">
@@ -141,22 +142,19 @@
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label">请输入旧密码</label>
 						<div class="col-sm-9">
-							<input type="password" class="form-control" 
-								 >
+							<input type="password" name="oldPassword" class="form-control">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-3 control-label">请输入新密码</label>
 						<div class="col-sm-9">
-							<input type="password" class="form-control" id="newPasswordOne"
-								>
+							<input type="password" name="newPassword" class="form-control" id="newPasswordOne">
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputPassword3" class="col-sm-3 control-label">请再次输入</label>
 						<div class="col-sm-9">
-							<input type="password" class="form-control" id="newPasswordTwo"
-								>
+							<input type="password" class="form-control" id="newPasswordTwo">
 						</div>
 					</div>
 					<div class="form-group">

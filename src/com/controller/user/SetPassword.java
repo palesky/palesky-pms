@@ -11,16 +11,16 @@ import com.model.bean.UserBean;
 import com.model.dao.UserDao;
 
 /**
- * Servlet implementation class UpdateUserServlet
+ * Servlet implementation class SetPassword
  */
-@WebServlet("/updateUser")
-public class UpdateUserServlet extends HttpServlet {
+@WebServlet("/setPassword")
+public class SetPassword extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateUserServlet() {
+    public SetPassword() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,29 +32,21 @@ public class UpdateUserServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		UserDao d=new UserDao();
 		UserBean user=(UserBean)request.getSession().getAttribute("user");
-		String realname=request.getParameter("realname");
-		String email=request.getParameter("email");
-		String gender=request.getParameter("gender");
-		String phone=request.getParameter("phone");
-		String account=request.getParameter("account");
+		String oldPassword=request.getParameter("oldPassword");
+		String newPassword=request.getParameter("newPassword");
+		String username=user.getAccount();
 		
-		if(realname==null){realname=user.getRealname();}
-		if(email==null){email=user.getEmail();}
-		if(gender==null){gender=user.getGender();}
-		if(phone==null){phone=user.getPhone();}
-		if(account==null){account=user.getAccount();}
+		if(oldPassword==null||newPassword==null){
+			return;
+		}
 		
-		user.setRealname(realname);
-		user.setEmail(email);
-		user.setGender(gender);
-		user.setPhone(phone);
-		user.setAccount(account);
-		
-		d.updateUser(user);
-		
-		response.sendRedirect("product");
+		if(d.loginUser(username, oldPassword)){
+			if(d.setNewPassword(user.getId(), newPassword))
+				response.sendRedirect("index");
+		}
+		else
+			response.sendRedirect("error.jsp");
 		return;
-		
 	}
 
 	/**

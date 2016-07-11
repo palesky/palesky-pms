@@ -138,16 +138,26 @@ public class UserDao extends BaseDao {
 	
 	
 	public boolean updateUser(UserBean user) {
-		String sql = "update user set account=?,password=?,realname=?,gender=?,email=?,phone=?,belongTo=? where id=?";
+		String sql = "update user set account=?,realname=?,gender=?,email=?,phone=? where id=?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, user.getAccount());
-			pstmt.setString(2, user.getPassword());
-			pstmt.setString(3, user.getRealname());
-			pstmt.setString(4, user.getGender());
-			pstmt.setString(5, user.getEmail());
-			pstmt.setString(6, user.getPhone());
-			pstmt.setString(7, user.getBelongTo());
-			pstmt.setString(8, user.getId());
+			pstmt.setString(2, user.getRealname());
+			pstmt.setString(3, user.getGender());
+			pstmt.setString(4, user.getEmail());
+			pstmt.setString(5, user.getPhone());
+			pstmt.setString(6, user.getId());
+			pstmt.executeUpdate();
+			return true;
+		} catch (SQLException se) {
+			se.printStackTrace();
+			return false;
+		}
+	}
+	public boolean setNewPassword(String id,String password) {
+		String sql = "update user set password=? where id=?";
+		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, password);
+			pstmt.setString(2, id);
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {
