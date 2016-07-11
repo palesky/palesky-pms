@@ -11,6 +11,15 @@ public class ProjectBean {
 	String team;
 	String confirmedBy;
 	String prod_id;
+	String chargeBy;
+	
+	public String getChargeBy() {
+		return chargeBy;
+	}
+
+	public void setChargeBy(String chargeBy) {
+		this.chargeBy = chargeBy;
+	}
 
 	public String getId() {
 		return id;

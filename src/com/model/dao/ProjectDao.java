@@ -35,6 +35,8 @@ public class ProjectDao extends BaseDao{
 				project.setTeam(rst.getString("team"));
 				project.setConfirmedBy(rst.getString("confirmedBy"));
 				project.setProd_id(rst.getString("prod_id"));
+				project.setChargeBy(rst.getString("chargeBy"));
+				
 				System.out.println(project.toString());
 				list.add(project);
 			}
@@ -62,6 +64,7 @@ public class ProjectDao extends BaseDao{
 				project.setTeam(rst.getString("team"));
 				project.setConfirmedBy(rst.getString("confirmedBy"));
 				project.setProd_id(rst.getString("prod_id"));
+				project.setChargeBy(rst.getString("chargeBy"));
 			}
 			return project;
 		} catch (SQLException e) {
@@ -76,7 +79,7 @@ public class ProjectDao extends BaseDao{
 		Date d=new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
 		String dateNowStr =sdf.format(d);
-		String sql = "INSERT INTO project(id,name,status,createdBy,createdDate,endDate,explain,team,confirmedBy,prod_id)VALUES(?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO project(id,name,status,createdBy,createdDate,endDate,explain,team,confirmedBy,prod_id,chargeBy)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, project.getId());
@@ -88,7 +91,8 @@ public class ProjectDao extends BaseDao{
 			pstmt.setString(7, project.getExplain());
 			pstmt.setString(8, project.getTeam());
 			pstmt.setString(9, project.getConfirmedBy());
-			pstmt.setString(10, project.getProd_id());
+			pstmt.setString(10, project.getChargeBy());
+			pstmt.setString(11, project.getProd_id());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {
@@ -117,7 +121,7 @@ public class ProjectDao extends BaseDao{
 	 * */
 	public boolean updateProject(ProjectBean project) {
 		
-		String sql = "update project set id=?,name=?,status=?,endDate=?,explain=?,team=?,confirmedBy=? where id=?";
+		String sql = "update project set id=?,name=?,status=?,endDate=?,explain=?,team=?,confirmedBy=?,chargeBy=? where id=?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(2, project.getName());
 			pstmt.setString(3, project.getStatus());
@@ -125,7 +129,8 @@ public class ProjectDao extends BaseDao{
 			pstmt.setString(5, project.getExplain());
 			pstmt.setString(6, project.getTeam());
 			pstmt.setString(7, project.getConfirmedBy());
-			pstmt.setString(8, project.getId());
+			pstmt.setString(8, project.getChargeBy());
+			pstmt.setString(9, project.getId());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {

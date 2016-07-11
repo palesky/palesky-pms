@@ -74,7 +74,8 @@ public class ShowProductServlet extends HttpServlet {
 			request.setAttribute("item", pd.getProduct(q));
 			request.setAttribute("itemList", pj.findAllProject());
 			request.setAttribute("itemType", "产品");
-			request.setAttribute("url", "project");
+			request.setAttribute("url", "product");
+			request.setAttribute("sonUrl", "project");
 			
 			request.getRequestDispatcher("productInfo.jsp").forward(request, response);
 		}
