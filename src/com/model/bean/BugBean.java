@@ -15,6 +15,7 @@ public class BugBean {
 	//如果usecaseId为空  说明该id是 自主发现的
 	String usecaseId;
 	String task_testerId;
+	String chargeBy;
 	
 	public String getId(){
 		return id;
@@ -88,6 +89,12 @@ public class BugBean {
 	}
 	public void setTask_testerId(String task_testerId) {
 		this.task_testerId = task_testerId;
+	}
+	public String getChargeBy(){
+		return chargeBy;
+	}
+	public void setChargeBy(String chargeBy){
+		this.chargeBy=chargeBy;
 	}
 	@Override
 	public String toString() {

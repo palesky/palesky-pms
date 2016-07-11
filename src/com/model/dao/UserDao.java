@@ -98,6 +98,7 @@ public class UserDao extends BaseDao {
 			se.printStackTrace();
 			return false;
 		}
+		
 	}
 
 	

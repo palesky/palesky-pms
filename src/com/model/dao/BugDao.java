@@ -40,6 +40,7 @@ public class BugDao extends BaseDao{
 				bug.setSteps(rst.getString("steps"));
 				bug.setUsecaseId(rst.getString("usecaseId"));
 				bug.setTask_testerId(rst.getString("task_testerId"));
+				bug.setChargeBy(rst.getString("chargeBy"));
 				list.add(bug);
 			}
 			return list;
@@ -55,21 +56,21 @@ public class BugDao extends BaseDao{
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
 		String dateNowStr =sdf.format(d);
 		
-		String sql = "INSERT INTO bug(id,name,status,bug_type,os,browser,foundBy,foundDate,priority,steps,usecaseId,task_testerId)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO bug(name,status,bug_type,os,browser,foundBy,foundDate,priority,steps,usecaseId,task_testerId,chargeBy)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, bug.getId());
-			pstmt.setString(2, bug.getName());
-			pstmt.setString(3, bug.getStatus());
-			pstmt.setString(4, bug.getBug_type());
-			pstmt.setString(5, bug.getOs());
-			pstmt.setString(6, bug.getBrowser());
-			pstmt.setString(7, bug.getFoundBy());
-			pstmt.setString(8, dateNowStr);
-			pstmt.setString(9, bug.getPriority());
-			pstmt.setString(10, bug.getSteps());
-			pstmt.setString(11, bug.getUsecaseId());
-			pstmt.setString(12, bug.getTask_testerId());
+			pstmt.setString(1, bug.getName());
+			pstmt.setString(2, bug.getStatus());
+			pstmt.setString(3, bug.getBug_type());
+			pstmt.setString(4, bug.getOs());
+			pstmt.setString(5, bug.getBrowser());
+			pstmt.setString(6, bug.getFoundBy());
+			pstmt.setString(7, dateNowStr);
+			pstmt.setString(8, bug.getPriority());
+			pstmt.setString(9, bug.getSteps());
+			pstmt.setString(10, bug.getUsecaseId());
+			pstmt.setString(11, bug.getTask_testerId());
+			pstmt.setString(12, bug.getChargeBy());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {
@@ -95,7 +96,7 @@ public class BugDao extends BaseDao{
 	//update --- 有限的数据可以更新
 	//所属用例类型 和 所属测试小组 不可更改
 	public boolean updateBug(BugBean bug) {
-		String sql = "update bug set name=?,status=?,bug_type=?,os=?,browser=?,priority=?,steps=? where id=?";
+		String sql = "update bug set name=?,status=?,bug_type=?,os=?,browser=?,priority=?,steps=? ,chargeBy =? where id=?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, bug.getName());
 			pstmt.setString(2, bug.getStatus());
@@ -105,6 +106,7 @@ public class BugDao extends BaseDao{
 			pstmt.setString(6, bug.getPriority());
 			pstmt.setString(7, bug.getSteps());
 			pstmt.setString(8, bug.getId());
+			pstmt.setString(9, bug.getChargeBy());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {
