@@ -286,7 +286,7 @@ public class TaskDao extends BaseDao{
 	//------------------------------------------------------------------
 	public ArrayList<TaskBean> findMyChargedTask(String id){
 		ArrayList<TaskBean> list = new ArrayList<TaskBean>();
-		String sql="select * from task where chargedBy=?";
+		String sql="select * from task where chargeBy=?";
 		try(Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)){
 			pstmt.setString(1, id);

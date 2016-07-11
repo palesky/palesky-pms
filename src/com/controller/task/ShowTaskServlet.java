@@ -1,4 +1,4 @@
-package com.controller.product;
+package com.controller.task;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -12,26 +12,25 @@ import com.model.dao.ProductDao;
 import com.model.dao.ProjectDao;
 
 /**
- * Servlet implementation class ShowProductServlet
+ * Servlet implementation class ShowTaskServlet
  */
-@WebServlet("/product")
-public class ShowProductServlet extends HttpServlet {
+@WebServlet("/task")
+public class ShowTaskServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public ShowTaskServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public ShowProductServlet() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		// TODO Auto-generated method stubow
 		// 命名为itemList的原因是因为要实现 ./WEB-INF/part/list-group
 		// 的复用，所以所有数据传过去，最好都命名为itemList --xjy
@@ -80,15 +79,12 @@ public class ShowProductServlet extends HttpServlet {
 			request.getRequestDispatcher("productInfo.jsp").forward(request, response);
 		}
 
-		
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}

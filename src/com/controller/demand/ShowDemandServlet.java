@@ -51,7 +51,7 @@ public class ShowDemandServlet extends HttpServlet {
 					request.setAttribute("list_group_title", "需求列表");
 					request.setAttribute("list_group_title2", "和我有关的任务");
 					request.setAttribute("itemList", demandDao.findAllDemand());
-					request.setAttribute("itemList2", taskDao.findAllTask());
+					request.setAttribute("itemList2", taskDao.findMyChargedTask(user.getId()));
 					request.setAttribute("itemType", "需求");
 					request.setAttribute("itemType2", "任务");
 					request.setAttribute("url", "demand");
@@ -62,11 +62,11 @@ public class ShowDemandServlet extends HttpServlet {
 					request.setAttribute("list_group_title", "和我有关的需求");
 					request.setAttribute("list_group_title2", "和我有关的任务");
 					request.setAttribute("itemList", demandDao.findMyChargeDemand(user.getId()));
-					request.setAttribute("itemList2", taskDao.findAllTask());
+					request.setAttribute("itemList2", taskDao.findMyChargedTask(user.getId()));
 					request.setAttribute("itemType", "需求");
 					request.setAttribute("itemType2", "任务");
 					request.setAttribute("url", "demand");
-					request.setAttribute("url2", "product");
+					request.setAttribute("url2", "task");
 					
 					request.getRequestDispatcher("demand.jsp").forward(request, response);
 				} else {//特定的任务
@@ -75,7 +75,7 @@ public class ShowDemandServlet extends HttpServlet {
 					request.setAttribute("itemList", taskDao.findAllTask());
 					request.setAttribute("itemType", "需求");
 					request.setAttribute("url", "demand");
-					request.setAttribute("sonUrl", "product");
+					request.setAttribute("sonUrl", "task");
 					
 					request.getRequestDispatcher("demandInfo.jsp").forward(request, response);
 				}
