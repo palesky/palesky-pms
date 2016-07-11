@@ -14,6 +14,7 @@ import com.model.bean.ProductBean;
 import com.model.bean.TaskBean;
 import com.model.bean.Task_developerBean;
 import com.model.bean.Task_testerBean;
+import com.model.bean.UsecaseBean;
 
 /**
  * 未测试
@@ -99,6 +100,30 @@ public class TaskDao extends BaseDao{
 				bug.setTask_testerId(rst.getString("task_testerId"));
 				bug.setChargeBy(rst.getString("chargeBy"));
 				list.add(bug);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+    }
+    
+    //---------------------------------------------------------------------------
+    public ArrayList<UsecaseBean> findUsecaseByTask(String id){
+    	ArrayList<UsecaseBean> list =new ArrayList<UsecaseBean>();
+    	String sql="select * from usecase where id in (select usecaseId from bug where task_testerId in (select id from task_tester where taskId=?))";
+    	try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    		pstmt.setString(1, id);
+			ResultSet rst = pstmt.executeQuery();
+			while (rst.next()) {
+				UsecaseBean usecase = new UsecaseBean();
+				usecase.setId(rst.getString("id"));
+				usecase.setUsecaseLibId(rst.getString("usecaseLibId"));
+				usecase.setCreatedBy(rst.getString("createdBy"));
+				usecase.setCreatedDate(rst.getString("createdDate"));
+				usecase.setSteps(rst.getString("steps"));
+				list.add(usecase);
 			}
 			return list;
 		} catch (SQLException e) {
