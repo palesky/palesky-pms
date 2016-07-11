@@ -4,24 +4,24 @@
 <!-- sessionScope.itemList 传ArrayList<object> -->
 <!-- url add+url 拼接为addProduct 等..-->
 <!-- url?item.id 查看详情 -->
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+pageEncoding="UTF-8"%>
 <div class="col-lg-8">
 	<div class="panel panel-default">
-  		<div class="panel-heading">${list_group_title} <a class="pull-right btn btn-default btn-lg" href="add${url}">新建${itemType}</a> </div>
+		<div class="panel-heading">
+			${list_group_title} <a class="pull-right btn btn-default btn-lg"
+				href="add${url}">新建${itemType}</a>
+		</div>
 		<ul class="list-group">
-  			<c:if test="sessionScope.itemList!=null}">
-  				<c:forEach var="item" items="sessionScope.itemList">
-	  			<li class="list-group-item">
-	    		<span class="badge">${item.numOfBug}</span>
-	   			 ${item.name}:${item.explain} <a href="./${url}?${item.id}">详情</a>
-	  			</li>
-	  			</c:forEach>
-  			</c:if>	
-  			<c:if test="sessionScope.itemList==null}">
-  				产品列表为空
-  			</c:if>	
+
+			<c:forEach var="item" items="${requestScope.itemList}">
+				<li class="list-group-item">${item.name} : ${item.explain} <a
+					href="./${url}?q=${item.id}">详情</a>
+				</li>
+			</c:forEach>
+
+
 		</ul>
 	</div>
 </div>

@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession(true);
 			//sesson存入用户信息
 			session.setAttribute("user", user);
-			response.sendRedirect("index.jsp");
+			response.sendRedirect("product");
 			return;
 		} else {
 			request.getSession().setAttribute("username", account);

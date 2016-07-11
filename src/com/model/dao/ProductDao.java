@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 public class ProductDao extends BaseDao{
 	
 	public ArrayList<ProductBean> findAllProduct() {
+		System.out.println("running findAllProduct");
 		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
 		String sql = "SELECT * FROM product ";
 		try (Connection conn = dataSource.getConnection(); 
@@ -35,6 +36,7 @@ public class ProductDao extends BaseDao{
 				product.setEndDate(rst.getString("endDate"));
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));
+				System.out.println(product.toString());
 				list.add(product);
 			}
 			return list;

@@ -29,7 +29,7 @@ public class ProjectDao extends BaseDao{
 				project.setName(rst.getString("name"));
 				project.setStatus(rst.getString("status"));
 				project.setCreatedBy(rst.getString("createdBy"));
-				project.setCreateDate(rst.getString("createDate"));
+				project.setCreateDate(rst.getString("createdDate"));
 				project.setEndDate(rst.getString("endDate"));
 				project.setExplain(rst.getString("explain"));
 				project.setTeam(rst.getString("team"));
