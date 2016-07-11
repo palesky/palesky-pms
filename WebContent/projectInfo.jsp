@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,10 +33,10 @@
 			<li><a href="index"><svg
 						class="glyph stroked dashboard-dial">
 						<use xlink:href="#stroked-dashboard-dial"></use></svg> 个人面板</a></li>
-			<li class="active"><a href="product"><svg
-						class="glyph stroked calendar">
+			<li><a href="product"><svg class="glyph stroked calendar">
 						<use xlink:href="#stroked-calendar"></use></svg> 产品</a></li>
-			<li><a href="project"><svg class="glyph stroked line-graph">
+			<li class="active"><a href="project"><svg
+						class="glyph stroked line-graph">
 						<use xlink:href="#stroked-line-graph"></use></svg> 项目</a></li>
 			<li><a href="demand"><svg class="glyph stroked table">
 						<use xlink:href="#stroked-table"></use></svg> 需求</a></li>
@@ -57,22 +56,20 @@
 
 	</div>
 	<!--/.sidebar-->
-
-	<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+	
+		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
 
 		<%@include file="./WEB-INF/part/breadcrumb.html"%>
 		<div class="row">
 			<div class="col-lg-12">
-				<h1 class="page-header">Product 产品</h1>
+				<h1 class="page-header">Project 项目</h1>
 			</div>
 		</div>
 		<div class="row">
-			<%@include file="./WEB-INF/part/list-group.html"%>
-			<%@include file="./WEB-INF/part/list-group2.html"%>
+			<%@include file="./WEB-INF/part/list-group3.html"%>
 		</div>
 
 	</div>
-
 
 	<script src="js/jquery-1.11.1.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>

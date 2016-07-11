@@ -138,5 +138,9 @@ public class ProjectDao extends BaseDao{
 			return false;
 		}
 	}
+	public Object findMyChargeProject(String id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

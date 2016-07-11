@@ -164,7 +164,7 @@ public class ProductDao extends BaseDao{
 //		System.out.print(d);
 //		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
 //		String dateNowStr =sdf.format(d);
-		String sql = "INSERT INTO product(id,name,status,pro_type,createdBy,createdDate,endDate,explain,confirmedBy,chargeBy)VALUES(?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO product(id,name,status,pro_type,createdBy,createdDate,endDate,`explain`,confirmedBy,chargeBy)VALUES(?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, product.getId());
@@ -173,7 +173,8 @@ public class ProductDao extends BaseDao{
 			pstmt.setString(4, product.getPro_type());
 			pstmt.setString(5, product.getCreatedBy());
 			pstmt.setDate(6, new java.sql.Date(new java.util.Date().getTime()));
-			pstmt.setString(7, product.getEndDate());
+			pstmt.setDate(7, new java.sql.Date(new java.util.Date().getTime()));
+//			pstmt.setString(7, product.getEndDate());
 			pstmt.setString(8, product.getExplain());
 			pstmt.setString(9, product.getConfirmedBy());
 			pstmt.setString(10, product.getChargeBy());

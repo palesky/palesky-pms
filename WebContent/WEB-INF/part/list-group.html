@@ -5,6 +5,8 @@
 <!-- url add+url 拼接为addProduct 等..-->
 <!-- url?item.id 查看详情 -->
 <!-- itemType 为中文  -->
+<!-- chargedByList ->chargedMan 指派者列表
+	 confirmedByList ->confirmedMan 审核者列表 -->
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> <%@ page
 language="java" contentType="text/html; charset=UTF-8"
@@ -75,7 +77,7 @@ pageEncoding="UTF-8"%>
 
 							<div class="col-sm-6">
 								<label for="exampleInputEmail1">创建者:${user.id}</label> <input
-									type="hidden" name="createdBy">
+									type="hidden" name="createdBy" value="${user.id}">
 							</div>
 						</div>
 					</div>
@@ -91,15 +93,17 @@ pageEncoding="UTF-8"%>
 							<div class="col-sm-6">
 								<label for="exampleInputEmail1">指派给</label> <select
 									name="chargeBy">
-									<option value="单平台">单平台</option>
-									<option value="多平台">多平台</option>
+									<c:forEach var="chargedMan" items="${sessionScope.chargedByList}">
+										<option value="${chargedMan.id}">${chargedMan.role}${chargedMan.realname}</option>
+									</c:forEach>
 								</select>
 							</div>
 							<div class="col-sm-6">
 								<label for="exampleInputEmail1">审核者</label> <select
 									name="confirmedBy">
-									<option value="单平台">单平台</option>
-									<option value="多平台">多平台</option>
+									<c:forEach var="confirmedMan" items="${sessionScope.confirmedByList}">
+										<option value="${confirmedMan.id}">${confirmedMan.role}${confirmedMan.realname}</option>
+									</c:forEach>
 								</select>
 							</div>
 						</div>

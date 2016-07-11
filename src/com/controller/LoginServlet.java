@@ -37,11 +37,19 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		request.getSession().removeAttribute("username");//由于粘性表单，所以在sessoin里存了username，所以要删除
 		
+		
+		
+		
 		String account = request.getParameter("username");
 		String password = request.getParameter("password");
 
 		UserDao d = new UserDao();
 		UserBean user = d.getUser(account);
+		
+
+		request.getSession().setAttribute("chargedByList",d.findAllChargedMan());
+		request.getSession().setAttribute("confirmedByList",d.findAllConfirmeddMan());
+		
 		System.out.println(user.toString());
 		if (user == null||user.getPassword()==null) {
 			System.out.println("无该用户");
