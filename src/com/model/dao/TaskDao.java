@@ -222,7 +222,7 @@ public class TaskDao extends BaseDao{
 		Date d=new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
 		String dateNowStr =sdf.format(d);
-		String sql = "INSERT INTO task(id,name,status,createdBy,createdDate,endDate,explain,lastEditedBy,lastEditedDate,confirmedBy,demand_id,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO task(id,name,status,createdBy,createdDate,endDate,`explain`,lastEditedBy,lastEditedDate,confirmedBy,demand_id,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, task.getId());
@@ -363,7 +363,7 @@ public class TaskDao extends BaseDao{
 		Date d=new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
 		String dateNowStr =sdf.format(d);
-		String sql = "update task set id=?,name=?,status=?,endDate=?,explain=?,lastEditedBy=?,lastEditedDate=?,confirmedBy=?,chargeBy=?,bugNum=? where id=?";
+		String sql = "update task set id=?,name=?,status=?,endDate=?,`explain`=?,lastEditedBy=?,lastEditedDate=?,confirmedBy=?,chargeBy=?,bugNum=? where id=?";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, task.getId());

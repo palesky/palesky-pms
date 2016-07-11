@@ -218,7 +218,7 @@ public class ProductDao extends BaseDao{
 	
 	
 	public boolean addProduct(ProductBean product) {
-		String sql = "INSERT INTO product(id,name,status,pro_type,createdBy,createdDate,endDate,explain,confirmedBy,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO product(id,name,status,pro_type,createdBy,createdDate,endDate,`explain`,confirmedBy,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, product.getId());
@@ -257,7 +257,7 @@ public class ProductDao extends BaseDao{
 	
 	
 	public boolean updateProduct(ProductBean product) {
-		String sql = "update product set id=?,name=?,status=?,pro_type=?,endDate=?,explain=?,confirmedBy=?,chargeBy=? where id=?";
+		String sql = "update product set id=?,name=?,status=?,pro_type=?,endDate=?,`explain`=?,confirmedBy=?,chargeBy=? where id=?";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, product.getId());

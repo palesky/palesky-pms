@@ -223,7 +223,7 @@ public class ProjectDao extends BaseDao{
 	
 	public boolean addProject(ProjectBean project) {
 		
-		String sql = "INSERT INTO project(id,name,status,createdBy,createdDate,endDate,explain,team,confirmedBy,prod_id,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO project(id,name,status,createdBy,createdDate,endDate,`explain`,team,confirmedBy,prod_id,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, project.getId());
@@ -266,7 +266,7 @@ public class ProjectDao extends BaseDao{
 	 * */
 	public boolean updateProject(ProjectBean project) {
 		
-		String sql = "update project set id=?,name=?,status=?,endDate=?,explain=?,team=?,confirmedBy=?,chargeBy=? where id=?";
+		String sql = "update project set id=?,name=?,status=?,endDate=?,`explain`=?,team=?,confirmedBy=?,chargeBy=? where id=?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(2, project.getName());
 			pstmt.setString(3, project.getStatus());
