@@ -1,5 +1,9 @@
 package com.model.bean;
 
+/*
+ * 增加 bugNum  chargeBy
+ * 
+ * */
 public class DemandBean{
 	String id;
 	String name;
@@ -11,6 +15,8 @@ public class DemandBean{
 	String lastEditedDate;
 	String confirmedBy;
 	String project_id;
+	String chargeBy;
+    int bugNum;
 	public String getId() {
 		return id;
 	}
@@ -71,6 +77,21 @@ public class DemandBean{
 	public void setProject_id(String project_id) {
 		this.project_id = project_id;
 	}
+	//---------------------------------------------------
+		public String getChargeBy(){
+			return chargeBy;
+		}
+		public void setChargeBy(String chargeBy){
+			this.chargeBy=chargeBy;
+		}
+		//---------------------------------------------------
+		public int getBugNum(){
+			return bugNum;
+		}
+		public void setBugNum(int bugNum){
+			this.bugNum=bugNum;
+		}
+		//---------------------------------------------------
 	@Override
 	public String toString() {
 		return "DemandDao [id=" + id + ", name=" + name + ", status=" + status + ", createdBy=" + createdBy

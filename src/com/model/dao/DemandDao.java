@@ -14,11 +14,12 @@ import com.model.bean.DemandBean;
 /**
  * 未测试
  * @author xj
- * demand 共有10项数据
+ * demand 共有12项数据
  * 7/10 合理性修改
  *
  */
 public class DemandDao extends BaseDao{
+	
 	
 	public ArrayList<DemandBean> findAllDemand() {
 		ArrayList<DemandBean> list = new ArrayList<DemandBean>();
@@ -37,6 +38,8 @@ public class DemandDao extends BaseDao{
 				demand.setLastEditedDate(rst.getString("lastEditedDate"));
 				demand.setConfirmedBy(rst.getString("confirmedBy"));
 				demand.setProject_id(rst.getString("project_id"));
+				demand.setChargeBy(rst.getString("chargeBy"));
+				demand.setBugNum(rst.getInt("bugNum"));
 				list.add(demand);
 				System.out.println(demand.toString());
 			}
@@ -65,6 +68,8 @@ public class DemandDao extends BaseDao{
 				demand.setLastEditedDate(rst.getString("lastEditedDate"));
 				demand.setConfirmedBy(rst.getString("confirmedBy"));
 				demand.setProject_id(rst.getString("project_id"));
+				demand.setChargeBy(rst.getString("chargeBy"));
+				demand.setBugNum(rst.getInt("bugNum"));
 			}
 			return demand;
 		} catch (SQLException e) {
@@ -80,7 +85,7 @@ public class DemandDao extends BaseDao{
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
 		String dateNowStr =sdf.format(d);
 		
-		String sql = "INSERT INTO demand(id,name,status,createdBy,createdDate,endDate,explain,lastEditedDate,confirmedBy,project_id)VALUES(?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO demand(id,name,status,createdBy,createdDate,endDate,explain,lastEditedDate,confirmedBy,project_id,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, demand.getId());
@@ -93,6 +98,8 @@ public class DemandDao extends BaseDao{
 			pstmt.setString(8, dateNowStr);
 			pstmt.setString(9, demand.getConfirmedBy());
 			pstmt.setString(10, demand.getProject_id());
+			pstmt.setString(11, demand.getChargeBy());
+			pstmt.setInt(12,0);
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {
@@ -120,7 +127,7 @@ public class DemandDao extends BaseDao{
 		Date d=new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
 		String dateNowStr =sdf.format(d);
-		String sql = "update demand set id=?,name=?,status=?,endDate=?,explain=?,lastEditedDate=?,confirmedBy=? where id=?";
+		String sql = "update demand set id=?,name=?,status=?,endDate=?,explain=?,lastEditedDate=?,confirmedBy=?, chargeBy=?,bugNum =? where id=?";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, demand.getId());
@@ -131,6 +138,7 @@ public class DemandDao extends BaseDao{
 			pstmt.setString(6, dateNowStr);
 			pstmt.setString(7, demand.getConfirmedBy());
 			pstmt.setString(8, demand.getId());
+			pstmt.setString(9, demand.getChargeBy());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {
