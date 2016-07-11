@@ -13,6 +13,7 @@ import com.model.dao.UserDao;
 
 /**
  * Servlet implementation class LoginServlet
+ * 已完成 7/11 -xjy
  */
 @WebServlet("/LoginServlet.do")
 public class LoginServlet extends HttpServlet {
@@ -50,6 +51,7 @@ public class LoginServlet extends HttpServlet {
 		if (user.getPassword().equals(password)) {
 			System.out.println("验证通过");
 			HttpSession session = request.getSession(true);
+			//sesson存入用户信息
 			session.setAttribute("user", user);
 			response.sendRedirect("index.jsp");
 			return;
