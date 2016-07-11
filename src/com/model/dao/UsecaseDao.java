@@ -25,7 +25,6 @@ public class UsecaseDao extends BaseDao{
 				UsecaseBean usecase = new UsecaseBean();
 				usecase.setId(rst.getString("id"));
 				usecase.setUsecaseLibId(rst.getString("usecaseLibId"));
-				usecase.setUsecaseLibType(rst.getString("usecaseLibType"));
 				usecase.setCreatedBy(rst.getString("createdBy"));
 				usecase.setCreatedDate(rst.getString("createdDate"));
 				usecase.setSteps(rst.getString("steps"));
@@ -43,15 +42,14 @@ public class UsecaseDao extends BaseDao{
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
 		String dateNowStr =sdf.format(d);
 		
-		String sql = "INSERT INTO usecase(id,usecaseLibId,usecaseLibType,createdBy,createdDate,steps)VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO usecase(id,usecaseLibId,createdBy,createdDate,steps)VALUES(?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, usecase.getId());
 			pstmt.setString(2, usecase.getUsecaseLibId());
-			pstmt.setString(3, usecase.getUsecaseLibType());
-			pstmt.setString(4, usecase.getCreatedBy());
-			pstmt.setString(5, dateNowStr);
-			pstmt.setString(6, usecase.getSteps());
+			pstmt.setString(3, usecase.getCreatedBy());
+			pstmt.setString(4, dateNowStr);
+			pstmt.setString(5, usecase.getSteps());
 			pstmt.executeUpdate();
 			
 			return true;
@@ -77,12 +75,11 @@ public class UsecaseDao extends BaseDao{
 	
 	
 	public boolean updateUsecase(UsecaseBean usecase) {
-		String sql = "update usecase set id=?,usecaseLibId=?,usecaseLibType=?,steps=? where id=?";
+		String sql = "update usecase set id=?,usecaseLibId=?,steps=? where id=?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(2, usecase.getUsecaseLibId());
-			pstmt.setString(3, usecase.getUsecaseLibType());
-			pstmt.setString(4, usecase.getSteps());
-			pstmt.setString(5, usecase.getId());
+			pstmt.setString(3, usecase.getSteps());
+			pstmt.setString(4, usecase.getId());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {

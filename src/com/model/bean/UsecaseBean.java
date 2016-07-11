@@ -8,7 +8,6 @@ package com.model.bean;
 public class UsecaseBean {
 	String id;
 	String usecaseLibId;
-	String usecaseLibType;
 	String createdBy;
 	String createdDate;
 	String steps;
@@ -26,13 +25,6 @@ public class UsecaseBean {
 	}
 	public void setUsecaseLibId(String usecaseLibId) {
 		this.usecaseLibId = usecaseLibId;
-	}
-	
-	public String getUsecaseLibType() {
-		return usecaseLibType;
-	}
-	public void setUsecaseLibType(String usecaseLibType) {
-		this.usecaseLibType = usecaseLibType;
 	}
 	
 	public String getCreatedBy() {
@@ -58,8 +50,7 @@ public class UsecaseBean {
 	
 	@Override
 	public String toString() {
-		return "UsecaseBean [id=" + id + ", usecaseLibId=" + usecaseLibId + ", usecaseLibType=" + usecaseLibType
-				+ ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", steps=" + steps + "]";
+		return "UsecaseBean [id=" + id + ", usecaseLibId=" + usecaseLibId +  ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", steps=" + steps + "]";
 	}
 	
 	
