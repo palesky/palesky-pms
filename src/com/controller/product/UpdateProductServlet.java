@@ -13,7 +13,7 @@ import com.model.dao.ProductDao;
 /**
  * Servlet implementation class UpdateProductServlet
  */
-@WebServlet("/UpdateProductServlet")
+@WebServlet("/updateproduct")
 public class UpdateProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

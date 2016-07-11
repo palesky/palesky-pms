@@ -35,13 +35,13 @@ public class LoginFilter implements Filter {
         String id="";
         
         //登录页面无需过滤
-        if(path.indexOf("/login.html") > -1) {
+        if(path.indexOf("/login.jsp") > -1) {
             chain.doFilter(servletRequest, servletResponse);
             return;
         }
 
         if (id == null || "".equals(id)) {
-            servletResponse.sendRedirect("/login.html");
+            servletResponse.sendRedirect("/login.jsp");
         } else {
             chain.doFilter(request, response);
         }
