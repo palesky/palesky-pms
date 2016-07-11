@@ -19,7 +19,6 @@ import java.text.SimpleDateFormat;
 public class ProductDao extends BaseDao{
 	
 	public ArrayList<ProductBean> findAllProduct() {
-		System.out.println("running findAllProduct");
 		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
 		String sql = "SELECT * FROM product ";
 		try (Connection conn = dataSource.getConnection(); 
@@ -36,7 +35,7 @@ public class ProductDao extends BaseDao{
 				product.setEndDate(rst.getString("endDate"));
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));
-				System.out.println(product.toString());
+				product.setChargeBy(rst.getString("chargeBy"));
 				list.add(product);
 			}
 			return list;
@@ -45,6 +44,91 @@ public class ProductDao extends BaseDao{
 			return null;
 		}
 	}
+	
+	public ArrayList<ProductBean> findMyCreatedProduct(String id){
+		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
+		String sql="select * from product where createdBy=?";
+		try(Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, id);
+			ResultSet rst =pstmt.executeQuery();
+			while(rst.next()){
+				ProductBean product = new ProductBean();
+				product.setId(rst.getString("id"));
+				product.setName(rst.getString("name"));
+				product.setStatus(rst.getString("status"));
+				product.setPro_type(rst.getString("pro_type"));
+				product.setCreatedBy(rst.getString("createdBy"));
+				product.setCreateDate(rst.getString("createdDate"));
+				product.setEndDate(rst.getString("endDate"));
+				product.setExplain(rst.getString("explain"));
+				product.setConfirmedBy(rst.getString("confirmedBy"));
+				product.setChargeBy(rst.getString("chargeBy"));
+				list.add(product);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
+	
+	public ArrayList<ProductBean> findMyConfirmedProduct(String id){
+		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
+		String sql="select * from product where confirmedBy=?";
+		try(Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, id);
+			ResultSet rst =pstmt.executeQuery();
+			while(rst.next()){
+				ProductBean product = new ProductBean();
+				product.setId(rst.getString("id"));
+				product.setName(rst.getString("name"));
+				product.setStatus(rst.getString("status"));
+				product.setPro_type(rst.getString("pro_type"));
+				product.setCreatedBy(rst.getString("createdBy"));
+				product.setCreateDate(rst.getString("createdDate"));
+				product.setEndDate(rst.getString("endDate"));
+				product.setExplain(rst.getString("explain"));
+				product.setConfirmedBy(rst.getString("confirmedBy"));
+				product.setChargeBy(rst.getString("chargeBy"));
+				list.add(product);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
+	
+	public ArrayList<ProductBean> findMyChargeProduct(String id){
+		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
+		String sql="select * from product where chargeBy=?";
+		try(Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, id);
+			ResultSet rst =pstmt.executeQuery();
+			while(rst.next()){
+				ProductBean product = new ProductBean();
+				product.setId(rst.getString("id"));
+				product.setName(rst.getString("name"));
+				product.setStatus(rst.getString("status"));
+				product.setPro_type(rst.getString("pro_type"));
+				product.setCreatedBy(rst.getString("createdBy"));
+				product.setCreateDate(rst.getString("createdDate"));
+				product.setEndDate(rst.getString("endDate"));
+				product.setExplain(rst.getString("explain"));
+				product.setConfirmedBy(rst.getString("confirmedBy"));
+				product.setChargeBy(rst.getString("chargeBy"));
+				list.add(product);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
+	
 	
 	public ProductBean getProduct(String id) {
 		String sql = "SELECT * FROM product where id=?";
@@ -63,6 +147,7 @@ public class ProductDao extends BaseDao{
 				product.setEndDate(rst.getString("endDate"));
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));
+				product.setChargeBy(rst.getString("chargeBy"));
 			}
 			return product;
 		} catch (SQLException e) {
@@ -77,7 +162,7 @@ public class ProductDao extends BaseDao{
 		Date d=new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
 		String dateNowStr =sdf.format(d);
-		String sql = "INSERT INTO product(id,name,status,pro_type,createdBy,createdDate,endDate,explain,confirmedBy)VALUES(?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO product(id,name,status,pro_type,createdBy,createdDate,endDate,explain,confirmedBy,chargeBy)VALUES(?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, product.getId());
@@ -89,6 +174,7 @@ public class ProductDao extends BaseDao{
 			pstmt.setString(7, product.getEndDate());
 			pstmt.setString(8, product.getExplain());
 			pstmt.setString(9, product.getConfirmedBy());
+			pstmt.setString(10, product.getChargeBy());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {
@@ -113,7 +199,7 @@ public class ProductDao extends BaseDao{
 	
 	
 	public boolean updateProduct(ProductBean product) {
-		String sql = "update product set id=?,name=?,status=?,pro_type=?,endDate=?,explain=?,confirmedBy=? where id=?";
+		String sql = "update product set id=?,name=?,status=?,pro_type=?,endDate=?,explain=?,confirmedBy=?,chargeBy=? where id=?";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, product.getId());
@@ -124,6 +210,8 @@ public class ProductDao extends BaseDao{
 			pstmt.setString(6, product.getExplain());
 			pstmt.setString(7, product.getConfirmedBy());
 			pstmt.setString(8, product.getId());
+			pstmt.setString(9, product.getChargeBy());
+			
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {

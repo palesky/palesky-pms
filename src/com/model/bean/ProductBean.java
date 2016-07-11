@@ -10,6 +10,7 @@ public class ProductBean {
 	String endDate;
 	String explain;
 	String confirmedBy;
+	String chargeBy;
 	public String getId() {
 		return id;
 	}
@@ -64,11 +65,19 @@ public class ProductBean {
 	public void setConfirmedBy(String confirmedBy) {
 		this.confirmedBy = confirmedBy;
 	}
+	//-----------------------------------------------------
+	public String getChargeBy(){
+		return chargeBy;
+	}
+	public void setChargeBy(String chargeBy){
+		this.chargeBy=chargeBy;
+	}
+	//-----------------------------------------------------
 	@Override
 	public String toString() {
 		return "ProductBean [id=" + id + ", name=" + name + ", status=" + status + ", pro_type=" + pro_type
 				+ ", createdBy=" + createdBy + ", createDate=" + createDate + ", endDate=" + endDate + ", explain="
-				+ explain + ", confirmedBy=" + confirmedBy + "]";
+				+ explain + ", confirmedBy=" + confirmedBy + ", chargeBy" + chargeBy + "]";
 	}
 	
 }
