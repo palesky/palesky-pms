@@ -11,6 +11,8 @@ import java.text.SimpleDateFormat;
 
 import com.model.bean.ProductBean;
 import com.model.bean.TaskBean;
+import com.model.bean.Task_developerBean;
+import com.model.bean.Task_testerBean;
 
 /**
  * 未测试
@@ -20,6 +22,80 @@ import com.model.bean.TaskBean;
  */
 public class TaskDao extends BaseDao{
 	
+	//查找 一个任务下 所有的测试小组
+	public ArrayList<Task_testerBean> findAllTask_tester(String taskId){
+		
+		ArrayList<Task_testerBean> list = new ArrayList<Task_testerBean>();
+		String sql="select * from task_tester where taskId =?";
+		try(Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			ResultSet rst = pstmt.executeQuery();
+			while(rst.next()){
+				Task_testerBean task = new Task_testerBean();
+				task.setId(rst.getString("id"));
+				task.setName(rst.getString("name"));
+				task.setTaskId(rst.getString("taskId"));
+				task.setUserId(rst.getString("userId"));
+				task.setCreatedDate(rst.getString("createdDate"));
+				task.setBugNum(rst.getInt("bugNum"));
+				list.add(task);
+			}
+			return list;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	//=---------------------------------------------------------------
+	//找出  一个task下  所有的开发小组
+    public ArrayList<Task_developerBean> findAllTask_developer(String taskId){
+		
+		ArrayList<Task_developerBean> list = new ArrayList<Task_developerBean>();
+		String sql="select * from task_developer where taskId =?";
+		try(Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			ResultSet rst = pstmt.executeQuery();
+			while(rst.next()){
+				Task_developerBean task = new Task_developerBean();
+				task.setId(rst.getString("id"));
+				task.setName(rst.getString("name"));
+				task.setTaskId(rst.getString("taskId"));
+				task.setUserId(rst.getString("userId"));
+				task.setCreatedDate(rst.getString("createdDate"));
+				list.add(task);
+			}
+			return list;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+	}
+    
+    //*************    获取 当前任务的bug总数
+    //*************
+    //-----------------------------------------------------------------------------
+    public int FindTaskBugNum(String id) throws SQLException{
+    	int bugNum=0;
+    	String sql ="update task set bugNum = "+"(select sum(bugNum) from task_tester where taskId =? )"+"where id=?";
+    	try(Connection conn= dataSource.getConnection();
+    			PreparedStatement pstmt=conn.prepareStatement(sql)){
+    		pstmt.setString(1, id);
+    		pstmt.setString(2, id);
+    		ResultSet rst =pstmt.executeQuery();
+    		bugNum= rst.getInt("bugNum");
+    		return bugNum;
+    	}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			bugNum=0;	
+    	}
+    	return bugNum;
+    }
+    
+    //--------------------------------------------------------------------------------
 	public ArrayList<TaskBean> findAllTask() {
 		
 		ArrayList<TaskBean> list = new ArrayList<TaskBean>();
