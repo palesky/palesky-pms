@@ -68,6 +68,94 @@ public class DemandDao extends BaseDao{
 			return null;
 		}
 	}
+	//-------------------------------------------------------------------------------
+	public ArrayList<DemandBean> findMyCreatedDemand(String id){
+		ArrayList<DemandBean> list = new ArrayList<DemandBean>();
+		String sql="select * from demand where createdBy=?";
+		try(Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, id);
+			ResultSet rst =pstmt.executeQuery();
+			while(rst.next()){
+				DemandBean demand = new DemandBean();
+				demand.setId(rst.getString("id"));
+				demand.setName(rst.getString("name"));
+				demand.setStatus(rst.getString("status"));
+				demand.setCreatedBy(rst.getString("createdBy"));
+				demand.setCreatedDate(rst.getString("createdDate"));
+				demand.setEndDate(rst.getString("endDate"));
+				demand.setExplain(rst.getString("explain"));
+				demand.setConfirmedBy(rst.getString("confirmedBy"));
+                demand.setProject_id(rst.getString("project_id"));
+				demand.setChargeBy(rst.getString("chargeBy"));
+				demand.setBugNum(rst.getInt("bugNum"));
+				list.add(demand);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
+	
+	//-------------------------------------------------------------------
+	public ArrayList<DemandBean> findMyConfirmedDemand(String id){
+		ArrayList<DemandBean> list = new ArrayList<DemandBean>();
+		String sql="select * from demand where confirmedBy=?";
+		try(Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, id);
+			ResultSet rst =pstmt.executeQuery();
+			while(rst.next()){
+				DemandBean demand = new DemandBean();
+				demand.setId(rst.getString("id"));
+				demand.setName(rst.getString("name"));
+				demand.setStatus(rst.getString("status"));
+				demand.setCreatedBy(rst.getString("createdBy"));
+				demand.setCreatedDate(rst.getString("createdDate"));
+				demand.setEndDate(rst.getString("endDate"));
+				demand.setExplain(rst.getString("explain"));
+				demand.setConfirmedBy(rst.getString("confirmedBy"));
+                demand.setProject_id(rst.getString("project_id"));
+				demand.setChargeBy(rst.getString("chargeBy"));
+				demand.setBugNum(rst.getInt("bugNum"));
+				list.add(demand);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
+	//----------------------------------------------------------------------
+	public ArrayList<DemandBean> findMyChargeDemand(String id){
+		ArrayList<DemandBean> list = new ArrayList<DemandBean>();
+		String sql="select * from demand where chargeBy=?";
+		try(Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, id);
+			ResultSet rst =pstmt.executeQuery();
+			while(rst.next()){
+				DemandBean demand = new DemandBean();
+				demand.setId(rst.getString("id"));
+				demand.setName(rst.getString("name"));
+				demand.setStatus(rst.getString("status"));
+				demand.setCreatedBy(rst.getString("createdBy"));
+				demand.setCreatedDate(rst.getString("createdDate"));
+				demand.setEndDate(rst.getString("endDate"));
+				demand.setExplain(rst.getString("explain"));
+				demand.setConfirmedBy(rst.getString("confirmedBy"));
+                demand.setProject_id(rst.getString("project_id"));
+				demand.setChargeBy(rst.getString("chargeBy"));
+				demand.setBugNum(rst.getInt("bugNum"));
+				list.add(demand);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
     
 	//通过id获取需求信息
 	public DemandBean getDemand(String id) {

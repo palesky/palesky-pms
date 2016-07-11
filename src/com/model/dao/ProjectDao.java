@@ -69,6 +69,97 @@ public class ProjectDao extends BaseDao{
 			return null;
 		}
 	}
+	//---------------------------------------------------------------------------------
+	public ArrayList<ProjectBean> findMyCreatedProject(String id){
+		ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
+		String sql="select * from project where createdBy=?";
+		try(Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, id);
+			ResultSet rst =pstmt.executeQuery();
+			while(rst.next()){
+				ProjectBean project = new ProjectBean();
+				project.setId(rst.getString("id"));
+				project.setName(rst.getString("name"));
+				project.setStatus(rst.getString("status"));
+				project.setCreatedBy(rst.getString("createdBy"));
+				project.setCreatedDate(rst.getString("createdDate"));
+				project.setEndDate(rst.getString("endDate"));
+				project.setExplain(rst.getString("explain"));
+                project.setTeam(rst.getString("team"));
+				project.setConfirmedBy(rst.getString("confirmedBy"));
+                project.setProd_id(rst.getString("prod_id"));
+				project.setChargeBy(rst.getString("chargeBy"));
+				project.setBugNum(rst.getInt("bugNum"));
+				list.add(project);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
+	//---------------------------------------------------------------------------------
+	public ArrayList<ProjectBean> findMyConfirmedProject(String id){
+		ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
+		String sql="select * from project where confirmedBy=?";
+		try(Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, id);
+			ResultSet rst =pstmt.executeQuery();
+			while(rst.next()){
+				ProjectBean project = new ProjectBean();
+				project.setId(rst.getString("id"));
+				project.setName(rst.getString("name"));
+				project.setStatus(rst.getString("status"));
+				project.setCreatedBy(rst.getString("createdBy"));
+				project.setCreatedDate(rst.getString("createdDate"));
+				project.setEndDate(rst.getString("endDate"));
+				project.setExplain(rst.getString("explain"));
+                project.setTeam(rst.getString("team"));
+				project.setConfirmedBy(rst.getString("confirmedBy"));
+                project.setProd_id(rst.getString("prod_id"));
+				project.setChargeBy(rst.getString("chargeBy"));
+				project.setBugNum(rst.getInt("bugNum"));
+				list.add(project);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
+	//----------------------------------------------------------------------------------
+	public ArrayList<ProjectBean> findMyChargeProject(String id){
+		ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
+		String sql="select * from project where chargeBy=?";
+		try(Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, id);
+			ResultSet rst =pstmt.executeQuery();
+			while(rst.next()){
+				ProjectBean project = new ProjectBean();
+				project.setId(rst.getString("id"));
+				project.setName(rst.getString("name"));
+				project.setStatus(rst.getString("status"));
+				project.setCreatedBy(rst.getString("createdBy"));
+				project.setCreatedDate(rst.getString("createdDate"));
+				project.setEndDate(rst.getString("endDate"));
+				project.setExplain(rst.getString("explain"));
+                project.setTeam(rst.getString("team"));
+				project.setConfirmedBy(rst.getString("confirmedBy"));
+                project.setProd_id(rst.getString("prod_id"));
+				project.setChargeBy(rst.getString("chargeBy"));
+				project.setBugNum(rst.getInt("bugNum"));
+				list.add(project);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}		
+	}
+	
     //通过id获取 项目信息
 	public ProjectBean getProject(String id) {
 		String sql = "SELECT * FROM project where id=?";
@@ -160,10 +251,6 @@ public class ProjectDao extends BaseDao{
 			se.printStackTrace();
 			return false;
 		}
-	}
-	public Object findMyChargeProject(String id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
