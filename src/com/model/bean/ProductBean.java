@@ -73,6 +73,13 @@ public class ProductBean {
 	public void setChargeBy(String chargeBy){
 		this.chargeBy=chargeBy;
 	}
+	
+	public int getBugNum(){
+		return bugNum;
+	}
+	public void setBugNum(int num){
+		this.bugNum=num;
+	}
 	//-----------------------------------------------------
 	@Override
 	public String toString() {

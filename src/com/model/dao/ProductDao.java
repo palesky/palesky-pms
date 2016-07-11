@@ -19,6 +19,25 @@ import java.text.SimpleDateFormat;
  */
 public class ProductDao extends BaseDao{
 	
+	public int FindProductBugNum(String id) throws SQLException{
+    	int bugNum=0;
+    	String sql ="update product set bugNum = "+"(select sum(bugNum) from project where prod_id =? )"+"where id=?";
+    	try(Connection conn= dataSource.getConnection();
+    			PreparedStatement pstmt=conn.prepareStatement(sql)){
+    		pstmt.setString(1, id);
+    		pstmt.setString(2, id);
+    		ResultSet rst =pstmt.executeQuery();
+    		bugNum= rst.getInt("bugNum");
+    		return bugNum;
+    	}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			bugNum=0;	
+    	}
+    	return bugNum;
+    }
+
+	
 	public ArrayList<ProductBean> findAllProduct() {
 		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
 		String sql = "SELECT * FROM product ";
@@ -37,6 +56,7 @@ public class ProductDao extends BaseDao{
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));
 				product.setChargeBy(rst.getString("chargeBy"));
+				product.setBugNum(rst.getInt("bugNum"));
 				list.add(product);
 			}
 			return list;
@@ -65,6 +85,7 @@ public class ProductDao extends BaseDao{
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));
 				product.setChargeBy(rst.getString("chargeBy"));
+				product.setBugNum(rst.getInt("bugNum"));
 				list.add(product);
 			}
 			return list;
@@ -93,6 +114,7 @@ public class ProductDao extends BaseDao{
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));
 				product.setChargeBy(rst.getString("chargeBy"));
+				product.setBugNum(rst.getInt("bugNum"));
 				list.add(product);
 			}
 			return list;
@@ -121,6 +143,7 @@ public class ProductDao extends BaseDao{
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));
 				product.setChargeBy(rst.getString("chargeBy"));
+				product.setBugNum(rst.getInt("bugNum"));
 				list.add(product);
 			}
 			return list;
@@ -149,6 +172,7 @@ public class ProductDao extends BaseDao{
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));
 				product.setChargeBy(rst.getString("chargeBy"));
+				product.setBugNum(rst.getInt("bugNum"));
 			}
 			return product;
 		} catch (SQLException e) {
@@ -160,11 +184,7 @@ public class ProductDao extends BaseDao{
 	
 	
 	public boolean addProduct(ProductBean product) {
-//		Date d=new java.sql.Date(new java.util.Date().getTime());
-//		System.out.print(d);
-//		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
-//		String dateNowStr =sdf.format(d);
-		String sql = "INSERT INTO product(id,name,status,pro_type,createdBy,createdDate,endDate,`explain`,confirmedBy,chargeBy)VALUES(?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO product(id,name,status,pro_type,createdBy,createdDate,endDate,explain,confirmedBy,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, product.getId());
@@ -178,6 +198,7 @@ public class ProductDao extends BaseDao{
 			pstmt.setString(8, product.getExplain());
 			pstmt.setString(9, product.getConfirmedBy());
 			pstmt.setString(10, product.getChargeBy());
+			pstmt.setInt(11, product.getBugNum());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {
@@ -212,9 +233,9 @@ public class ProductDao extends BaseDao{
 			pstmt.setString(5, product.getEndDate());
 			pstmt.setString(6, product.getExplain());
 			pstmt.setString(7, product.getConfirmedBy());
-			pstmt.setString(8, product.getId());
-			pstmt.setString(9, product.getChargeBy());
-			
+			pstmt.setString(8, product.getChargeBy());
+			pstmt.setString(9, product.getId());
+						
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {

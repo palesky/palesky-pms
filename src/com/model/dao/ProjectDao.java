@@ -14,9 +14,31 @@ import com.model.bean.ProjectBean;
  * 未测试，以此句为准
  * @author xj
  *
+ *
+ * 增加 bugNum  7/11  lk
  */
 public class ProjectDao extends BaseDao{
 	
+	
+	 public int FindProjectBugNum(String id) throws SQLException{
+	    	int bugNum=0;
+	    	String sql ="update project set bugNum = "+"(select sum(bugNum) from demand where project_id =? )"+"where id=?";
+	    	try(Connection conn= dataSource.getConnection();
+	    			PreparedStatement pstmt=conn.prepareStatement(sql)){
+	    		pstmt.setString(1, id);
+	    		pstmt.setString(2, id);
+	    		ResultSet rst =pstmt.executeQuery();
+	    		bugNum= rst.getInt("bugNum");
+	    		return bugNum;
+	    	}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				bugNum=0;	
+	    	}
+	    	return bugNum;
+	    }
+	
+	 //---------------------------------------------------------------------
 	public ArrayList<ProjectBean> findAllProject() {
 		ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
 		String sql = "SELECT * FROM project ";
@@ -36,6 +58,7 @@ public class ProjectDao extends BaseDao{
 				project.setConfirmedBy(rst.getString("confirmedBy"));
 				project.setProd_id(rst.getString("prod_id"));
 				project.setChargeBy(rst.getString("chargeBy"));
+				project.setBugNum(rst.getInt("bugNum"));
 				
 				System.out.println(project.toString());
 				list.add(project);
@@ -65,6 +88,7 @@ public class ProjectDao extends BaseDao{
 				project.setConfirmedBy(rst.getString("confirmedBy"));
 				project.setProd_id(rst.getString("prod_id"));
 				project.setChargeBy(rst.getString("chargeBy"));
+				project.setBugNum(rst.getInt("bugNum"));
 			}
 			return project;
 		} catch (SQLException e) {
@@ -76,23 +100,22 @@ public class ProjectDao extends BaseDao{
 
 	
 	public boolean addProject(ProjectBean project) {
-		Date d=new Date();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
-		String dateNowStr =sdf.format(d);
-		String sql = "INSERT INTO project(id,name,status,createdBy,createdDate,endDate,explain,team,confirmedBy,prod_id,chargeBy)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+		
+		String sql = "INSERT INTO project(id,name,status,createdBy,createdDate,endDate,explain,team,confirmedBy,prod_id,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, project.getId());
 			pstmt.setString(2, project.getName());
 			pstmt.setString(3, project.getStatus());
 			pstmt.setString(4, project.getCreatedBy());
-			pstmt.setString(5, dateNowStr);
+			pstmt.setDate(5, new java.sql.Date(new java.util.Date().getTime()));
 			pstmt.setString(6, project.getEndDate());
 			pstmt.setString(7, project.getExplain());
 			pstmt.setString(8, project.getTeam());
 			pstmt.setString(9, project.getConfirmedBy());
 			pstmt.setString(10, project.getChargeBy());
 			pstmt.setString(11, project.getProd_id());
+			pstmt.setInt(12, 0);
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {
