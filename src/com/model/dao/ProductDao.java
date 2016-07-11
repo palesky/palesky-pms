@@ -15,6 +15,7 @@ import java.text.SimpleDateFormat;
  * 以此为准：全部未测试
  * @author xj
  *
+ * 7/11增加 方法 
  */
 public class ProductDao extends BaseDao{
 	
@@ -31,7 +32,7 @@ public class ProductDao extends BaseDao{
 				product.setStatus(rst.getString("status"));
 				product.setPro_type(rst.getString("pro_type"));
 				product.setCreatedBy(rst.getString("createdBy"));
-				product.setCreateDate(rst.getString("createdDate"));
+				product.setCreatedDate(rst.getString("createdDate"));
 				product.setEndDate(rst.getString("endDate"));
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));
@@ -59,7 +60,7 @@ public class ProductDao extends BaseDao{
 				product.setStatus(rst.getString("status"));
 				product.setPro_type(rst.getString("pro_type"));
 				product.setCreatedBy(rst.getString("createdBy"));
-				product.setCreateDate(rst.getString("createdDate"));
+				product.setCreatedDate(rst.getString("createdDate"));
 				product.setEndDate(rst.getString("endDate"));
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));
@@ -87,7 +88,7 @@ public class ProductDao extends BaseDao{
 				product.setStatus(rst.getString("status"));
 				product.setPro_type(rst.getString("pro_type"));
 				product.setCreatedBy(rst.getString("createdBy"));
-				product.setCreateDate(rst.getString("createdDate"));
+				product.setCreatedDate(rst.getString("createdDate"));
 				product.setEndDate(rst.getString("endDate"));
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));
@@ -115,7 +116,7 @@ public class ProductDao extends BaseDao{
 				product.setStatus(rst.getString("status"));
 				product.setPro_type(rst.getString("pro_type"));
 				product.setCreatedBy(rst.getString("createdBy"));
-				product.setCreateDate(rst.getString("createdDate"));
+				product.setCreatedDate(rst.getString("createdDate"));
 				product.setEndDate(rst.getString("endDate"));
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));
@@ -143,7 +144,7 @@ public class ProductDao extends BaseDao{
 				product.setStatus(rst.getString("status"));
 				product.setPro_type(rst.getString("pro_type"));
 				product.setCreatedBy(rst.getString("createdBy"));
-				product.setCreateDate(rst.getString("createdDate"));
+				product.setCreatedDate(rst.getString("createdDate"));
 				product.setEndDate(rst.getString("endDate"));
 				product.setExplain(rst.getString("explain"));
 				product.setConfirmedBy(rst.getString("confirmedBy"));

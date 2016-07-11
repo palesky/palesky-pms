@@ -6,11 +6,12 @@ public class ProductBean {
 	String status;
 	String pro_type;
 	String createdBy;
-	String createDate;
+	String createdDate;
 	String endDate;
 	String explain;
 	String confirmedBy;
 	String chargeBy;
+	int bugNum;
 	public String getId() {
 		return id;
 	}
@@ -42,10 +43,10 @@ public class ProductBean {
 		this.createdBy = createdBy;
 	}
 	public String getCreateDate() {
-		return createDate;
+		return createdDate;
 	}
-	public void setCreateDate(String createDate) {
-		this.createDate = createDate;
+	public void setCreatedDate(String createdDate) {
+		this.createdDate = createdDate;
 	}
 	public String getEndDate() {
 		return endDate;
@@ -76,7 +77,7 @@ public class ProductBean {
 	@Override
 	public String toString() {
 		return "ProductBean [id=" + id + ", name=" + name + ", status=" + status + ", pro_type=" + pro_type
-				+ ", createdBy=" + createdBy + ", createDate=" + createDate + ", endDate=" + endDate + ", explain="
+				+ ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", endDate=" + endDate + ", explain="
 				+ explain + ", confirmedBy=" + confirmedBy + ", chargeBy" + chargeBy + "]";
 	}
 	

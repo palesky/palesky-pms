@@ -12,6 +12,8 @@ public class TaskBean {
 	String lastEditedDate;
 	String confirmedBy;
 	String demand_id;
+	String chargeBy;
+	int bugNum;
 	
 	public String getCreatedDate(){
 		return createdDate;
@@ -90,11 +92,25 @@ public class TaskBean {
 		this.demand_id = demand_id;
 	}
 	//---------------------------------------------------
+	public String getChargeBy(){
+		return chargeBy;
+	}
+	public void setChargeBy(String chargeBy){
+		this.chargeBy=chargeBy;
+	}
+	//---------------------------------------------------
+	public int getBugNum(){
+		return bugNum;
+	}
+	public void setBugNum(int bugNum){
+		this.bugNum=bugNum;
+	}
+	//---------------------------------------------------
 	@Override
 	public String toString() {
 		return "TaskBean [id=" + id + ", name=" + name + ", status=" + status + ", createdBy=" + createdBy
 				+", createdDate= "+createdDate+ ", endDate=" + endDate + ", explain=" + explain + ", lastEditedBy=" + lastEditedBy + ", confirmedBy="
-				+ confirmedBy + ", demand_id=" + demand_id + "]";
+				+ confirmedBy + ", demand_id=" + demand_id + " ,chargeBy"+chargeBy+" ,bugNum"+bugNum+ "]";
 	}
 	
 }
