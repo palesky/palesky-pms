@@ -1,21 +1,20 @@
 <!-- 待测试 7/10 -xjy -->
 <!-- 存在问题 c:if 无法判断itemList是否为空 -xjy -->
-<!-- list_group_title 传列表名 -->
-<!-- sessionScope.itemList 传ArrayList<object> -->
+<!-- list_group_title2 传列表名 -->
+<!-- sessionScope.itemList2 传ArrayList<object> -->
 <!-- url add+url 拼接为addProduct 等..-->
-<!-- url?item.id 查看详情 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<div class="col-lg-8">
+<div class="col-lg-4">
 	<div class="panel panel-default">
   		<div class="panel-heading">${list_group_title} <a class="pull-right btn btn-default btn-lg" href="add${url}">新建${itemType}</a> </div>
 		<ul class="list-group">
-  			<c:if test="sessionScope.itemList!=null}">
-  				<c:forEach var="item" items="sessionScope.itemList">
+  			<c:if test="sessionScope.itemList2!=null}">
+  				<c:forEach var="item" items="sessionScope.itemList2">
 	  			<li class="list-group-item">
-	    		<span class="badge">${item.numOfBug}</span>
-	   			 ${item.name}:${item.explain} <a href="./${url}?${item.id}">详情</a>
+	    		<!-- <span class="badge">${item.numOfBug}</span> -->
+	   			 ${item.name}:${item.explain} <a href="./product?${item.id}">详情</a>
 	  			</li>
 	  			</c:forEach>
   			</c:if>	
@@ -24,4 +23,4 @@
   			</c:if>	
 		</ul>
 	</div>
-</div>
+	</div>

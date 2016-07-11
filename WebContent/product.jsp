@@ -67,11 +67,11 @@
 				<h1 class="page-header">Product 产品</h1>
 			</div>
 		</div>
-		
+		<div class="row">
 		<%@include file="./WEB-INF/part/list-group.html"%>
-		<c:if test="sessionScope.itemList==null}">
-  				产品列表为空
-  		</c:if>
+		<%@include file="./WEB-INF/part/list-group2.html"%>
+		</div>
+		
 	</div>
 
 	<script src="js/jquery-1.11.1.min.js"></script>

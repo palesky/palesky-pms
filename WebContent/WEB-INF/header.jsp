@@ -17,11 +17,12 @@
 							<use xlink:href="#stroked-male-user"></use></svg> ${user.name} <span
 						class="caret"></span></a>
 					<ul class="dropdown-menu" role="menu">
-						<li><a data-toggle="modal" data-target="#myModal"><svg
+						<li><a data-toggle="modal" data-target="#setInfo"><svg
 									class="glyph stroked male-user">
 									<use xlink:href="#stroked-male-user"></use></svg> 个人信息</a></li>
-						<li><a href="setting"><svg class="glyph stroked gear">
-									<use xlink:href="#stroked-gear"></use></svg> 设置</a></li>
+						<li><a data-toggle="modal" data-target="#setPassword"><svg
+									class="glyph stroked gear">
+									<use xlink:href="#stroked-gear"></use></svg> 更改密码</a></li>
 						<li><a href="logout"><svg class="glyph stroked cancel">
 									<use xlink:href="#stroked-cancel"></use></svg> 注销</a></li>
 					</ul></li>
@@ -32,7 +33,7 @@
 	<!-- /.container-fluid -->
 </nav>
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+<div class="modal fade" id="setInfo" tabindex="-1" role="dialog"
 	aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -68,11 +69,9 @@
 						<label class="col-sm-2 control-label">性别</label>
 						<div class="col-sm-10">
 							<label class="radio-inline"> <input type="radio"
-								name="gender" id="inlineRadio1" value="男">
-								男
+								name="gender" id="inlineRadio1" value="男"> 男
 							</label> <label class="radio-inline"> <input type="radio"
-								name="gender" id="inlineRadio2" value="女">
-								女
+								name="gender" id="inlineRadio2" value="女"> 女
 							</label>
 						</div>
 					</div>
@@ -89,8 +88,8 @@
 							<p class="form-control-static">${user.belongTo}</p>
 						</div>
 					</div>
-					
-					
+
+
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-2 control-label">Email地址</label>
 						<div class="col-sm-10">
@@ -108,7 +107,7 @@
 					<div class="form-group">
 						<label class="col-sm-2 control-label">最后登录ip以及时间</label>
 						<div class="col-sm-10">
-							<p class="form-control-static">${user.ip} ${user.lastLogin}</p>
+							<p class="form-control-static">${user.ip}${user.lastLogin}</p>
 						</div>
 					</div>
 					<div class="form-group">
@@ -121,6 +120,56 @@
 			<!-- <div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 				<button type="button" class="btn btn-primary">保存</button>
+			</div> -->
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="setPassword" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">修改密码</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" action="setPassword">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-3 control-label">请输入旧密码</label>
+						<div class="col-sm-9">
+							<input type="password" class="form-control" 
+								 >
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-3 control-label">请输入新密码</label>
+						<div class="col-sm-9">
+							<input type="password" class="form-control" id="newPasswordOne"
+								>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputPassword3" class="col-sm-3 control-label">请再次输入</label>
+						<div class="col-sm-9">
+							<input type="password" class="form-control" id="newPasswordTwo"
+								>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-3 col-sm-9">
+							<button type="submit" class="btn btn-default">提交</button>
+						</div>
+					</div>
+				</form>
+
+			</div>
+			<!-- <div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
 			</div> -->
 		</div>
 	</div>
