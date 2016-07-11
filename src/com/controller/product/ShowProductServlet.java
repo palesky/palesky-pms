@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.model.bean.UserBean;
 import com.model.dao.ProductDao;
 import com.model.dao.ProjectDao;
 
@@ -37,7 +38,7 @@ public class ShowProductServlet extends HttpServlet {
 		// 需要先移除可能存在的值
 		request.removeAttribute("itemList");
 		request.removeAttribute("list_group_title");
-
+		UserBean user=(UserBean)request.getSession().getAttribute("user");
 		ProductDao pd = new ProductDao();
 		ProjectDao pj = new ProjectDao();
 
@@ -55,27 +56,30 @@ public class ShowProductServlet extends HttpServlet {
 			request.setAttribute("itemType2", "项目");
 			request.setAttribute("url", "product");
 			request.setAttribute("url2", "project");
+			
+			request.getRequestDispatcher("product.jsp").forward(request, response);
 		} else if (q.equals("me")) {
 			request.setAttribute("list_group_title", "和我有关的产品");
 			request.setAttribute("list_group_title2", "和我有关的项目");
-			request.setAttribute("itemList", pd.findAllProduct());
+			request.setAttribute("itemList", pd.findMyChargeProduct(user.getId()));
 			request.setAttribute("itemList2", pj.findAllProject());
 			request.setAttribute("itemType", "产品");
 			request.setAttribute("itemType2", "项目");
 			request.setAttribute("url", "product");
 			request.setAttribute("url2", "project");
+			
+			request.getRequestDispatcher("product.jsp").forward(request, response);
 		} else {//特定的产品
-			request.setAttribute("list_group_title", "产品列表");
-			request.setAttribute("list_group_title2", "和我有关的项目");
-			request.setAttribute("itemList", pd.findAllProduct());
-			request.setAttribute("itemList2", pj.findAllProject());
+			request.setAttribute("list_group_title3", "产品列表");
+			request.setAttribute("item", pd.getProduct(q));
+			request.setAttribute("itemList", pj.findAllProject());
 			request.setAttribute("itemType", "产品");
-			request.setAttribute("itemType2", "项目");
-			request.setAttribute("url", "product");
-			request.setAttribute("url2", "project");
+			request.setAttribute("url", "project");
+			
+			request.getRequestDispatcher("productInfo.jsp").forward(request, response);
 		}
 
-		request.getRequestDispatcher("product.jsp").forward(request, response);
+		
 	}
 
 	/**

@@ -29,7 +29,7 @@ public class ProjectDao extends BaseDao{
 				project.setName(rst.getString("name"));
 				project.setStatus(rst.getString("status"));
 				project.setCreatedBy(rst.getString("createdBy"));
-				project.setCreateDate(rst.getString("createdDate"));
+				project.setCreatedDate(rst.getString("createdDate"));
 				project.setEndDate(rst.getString("endDate"));
 				project.setExplain(rst.getString("explain"));
 				project.setTeam(rst.getString("team"));
@@ -56,7 +56,7 @@ public class ProjectDao extends BaseDao{
 				project.setName(rst.getString("name"));
 				project.setStatus(rst.getString("status"));
 				project.setCreatedBy(rst.getString("createdBy"));
-				project.setCreateDate(rst.getString("createDate"));
+				project.setCreatedDate(rst.getString("createdDate"));
 				project.setEndDate(rst.getString("endDate"));
 				project.setExplain(rst.getString("explain"));
 				project.setTeam(rst.getString("team"));
@@ -76,7 +76,7 @@ public class ProjectDao extends BaseDao{
 		Date d=new Date();
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
 		String dateNowStr =sdf.format(d);
-		String sql = "INSERT INTO project(id,name,status,createdBy,createDate,endDate,explain,team,confirmedBy,prod_id)VALUES(?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO project(id,name,status,createdBy,createdDate,endDate,explain,team,confirmedBy,prod_id)VALUES(?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, project.getId());

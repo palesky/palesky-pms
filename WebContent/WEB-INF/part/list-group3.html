@@ -1,0 +1,46 @@
+<!-- 
+可用于product project demand task
+id name status createdBy createdDate explain chargeBy
+$url 子 的处理器地址
+$itemList->ob 子
+$item 父
+ -->
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> <%@ page
+language="java" contentType="text/html; charset=UTF-8"
+pageEncoding="UTF-8"%>
+<div class="panel panel-default">
+	<!-- Default panel contents -->
+	<div class="panel-heading">${item.name}</div>
+	<div class="panel-body">
+		<p>${item.explain}</p>
+	</div>
+
+	<!-- Table -->
+	<table class="table table-hover table-bordered">
+		<tr>
+			<td>id</td>
+			<td>名称</td>
+			<td>创建日期</td>
+			<td>创建者</td>
+			<td>负责人</td>
+			<!-- <td>负责人</td> -->
+			<td>操作</td>
+			<!-- <td>删除</td> -->
+		</tr>
+		<c:forEach var="ob" items="${requestScope.itemList}">
+			<tr>
+				<%--用EL访问作用域变量的成员--%>
+				<td>${ob.id}</td>
+				<td>${ob.name}</td>
+				<td>${ob.status}</td>
+				<td>${ob.createdBy}</td>
+				<td>${ob.createdDate}</td>
+				<td>${ob.chargeBy}</td> <%--
+				<!-- <td><a href="updateStudent.do?q=toM&id=${student.id}">修改</a></td>
+				--%> <%--
+				<td><a href="deleteStudent.do?stu_id=${student.id}">删除</a></td> --%> -->
+				<td>${$url}?q=${ob.id}</td>
+			</tr>
+		</c:forEach>
+	</table>
+</div>
