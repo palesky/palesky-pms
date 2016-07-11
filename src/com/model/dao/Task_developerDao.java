@@ -12,35 +12,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.model.bean.ProductBean;
-import com.model.bean.Task_testerBean;
+import com.model.bean.Task_developerBean;
 
-
-/*
- * 只做了增删改 功能
- * 
- * 
- * */
 /**
- * Servlet implementation class Task_testerDao
+ * Servlet implementation class Task_developerDao
  */
-@WebServlet("/Task_testerDao")
-public class Task_testerDao extends BaseDao {
+@SuppressWarnings("serial")
+@WebServlet("/Task_developerDao")
+public class Task_developerDao extends BaseDao {
 	
-	public Task_testerBean getTask_tester(String id) {
-		String sql = "SELECT * FROM task_tester where id=?";
+	public Task_developerBean getTask_developer(String id) {
+		String sql = "SELECT * FROM task_developer where id=?";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, id);
 			ResultSet rst = pstmt.executeQuery();
-			Task_testerBean product = new Task_testerBean();
+			Task_developerBean product = new Task_developerBean();
 			while (rst.next()) {
 				product.setId(rst.getString("id"));
 				product.setName(rst.getString("name"));
 				product.setTaskId(rst.getString("taskId"));
 				product.setUserId(rst.getString("userId"));
 				product.setCreatedDate(rst.getString("createdDate"));
-				product.setBugNum(rst.getInt("bugNum"));
 			}
 			return product;
 		} catch (SQLException e) {
@@ -51,9 +44,9 @@ public class Task_testerDao extends BaseDao {
 	}
 	
 	//-------------------------------------------------------------------------------
-	public boolean addTask_tester(Task_testerBean product) {
+	public boolean addTask_developer(Task_developerBean product) {
 		
-		String sql = "INSERT INTO task_tester(id,name,taskId,userId,createdDate,bugNum)VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO task_developer(id,name,taskId,userId,createdDate)VALUES(?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, product.getId());
@@ -61,7 +54,6 @@ public class Task_testerDao extends BaseDao {
 			pstmt.setString(3, product.getTaskId());
 			pstmt.setString(4, product.getUserId());
 			pstmt.setDate(5, new java.sql.Date(new java.util.Date().getTime()));
-			pstmt.setInt(6, product.getBugNum());
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException se) {
@@ -71,8 +63,8 @@ public class Task_testerDao extends BaseDao {
 	}
 	
 	//-------------------------------------------------------------
-	public boolean deleteTask_tester(String id) {
-		String sql = "DELETE FROM task_tester where id=?";
+	public boolean deleteTask_developer(String id) {
+		String sql = "DELETE FROM task_developer where id=?";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, id);
@@ -85,14 +77,13 @@ public class Task_testerDao extends BaseDao {
 	}
 	
 	//------------------------------------------------------------------
-	public boolean updateTask_tester(Task_testerBean product) {
-		String sql = "update task_tester set id=?,name=?,taskId=?,userId=?,bugNum=?  where id=?";
+	public boolean updateTask_developer(Task_developerBean product) {
+		String sql = "update task_developer set id=?,name=?,taskId=?,userId=? where id=?";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(2, product.getName());
 			pstmt.setString(3, product.getTaskId());
 			pstmt.setString(4, product.getUserId());	
-			pstmt.setInt(5, product.getBugNum());
 			pstmt.setString(6, product.getId());			
 			pstmt.executeUpdate();
 			return true;

@@ -12,6 +12,7 @@ public class ProjectBean {
 	String confirmedBy;
 	String prod_id;
 	String chargeBy;
+	int bugNum;
 	
 	public String getChargeBy() {
 		return chargeBy;
@@ -100,7 +101,13 @@ public class ProjectBean {
 	public void setProd_id(String prod_id) {
 		this.prod_id = prod_id;
 	}
-
+    
+	public int getBugNum(){
+		return bugNum;
+	}
+	public void setBugNum(int num){
+		this.bugNum=num;
+	}
 	@Override
 	public String toString() {
 		return "ProjectBean [id=" + id + ", name=" + name + ", status=" + status + ", createdBy=" + createdBy

@@ -20,7 +20,26 @@ import com.model.bean.DemandBean;
  */
 public class DemandDao extends BaseDao{
 	
-	
+	//-----------------------------------------------------------------------------
+    public int FindDemandBugNum(String id) throws SQLException{
+    	int bugNum=0;
+    	String sql ="update demand set bugNum = "+"(select sum(bugNum) from task where demand_id =? )"+"where id=?";
+    	try(Connection conn= dataSource.getConnection();
+    			PreparedStatement pstmt=conn.prepareStatement(sql)){
+    		pstmt.setString(1, id);
+    		pstmt.setString(2, id);
+    		ResultSet rst =pstmt.executeQuery();
+    		bugNum= rst.getInt("bugNum");
+    		return bugNum;
+    	}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			bugNum=0;	
+    	}
+    	return bugNum;
+    }
+    
+    
 	public ArrayList<DemandBean> findAllDemand() {
 		ArrayList<DemandBean> list = new ArrayList<DemandBean>();
 		String sql = "SELECT * FROM demand ";
