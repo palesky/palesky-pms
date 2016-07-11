@@ -7,10 +7,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.model.bean.ProductBean;
+import com.model.dao.ProductDao;
+
 /**
  * Servlet implementation class AddProductServlet
  */
-@WebServlet("/AddProductServlet")
+@WebServlet("/addproduct")
 public class AddProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -37,8 +40,24 @@ public class AddProductServlet extends HttpServlet {
 		String confirmedBy=request.getParameter("confirmedBy");
 		String chargeBy=request.getParameter("chargeBy");
 		
+		ProductBean product=new ProductBean();
 		
-		;
+		product.setId(id);
+		product.setName(name);
+		product.setStatus(status);
+		product.setPro_type(pro_type);
+		product.setCreatedBy(createdBy);
+		product.setEndDate(endDate);
+		product.setExplain(explain);
+		product.setConfirmedBy(confirmedBy);
+		product.setChargeBy(chargeBy);
+		
+		System.out.println(product.toString());
+		
+		ProductDao pd=new ProductDao();
+		pd.addProduct(product);
+		response.sendRedirect("product?q="+id);
+		
 	}
 
 	/**

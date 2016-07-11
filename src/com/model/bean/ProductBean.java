@@ -78,7 +78,7 @@ public class ProductBean {
 	public String toString() {
 		return "ProductBean [id=" + id + ", name=" + name + ", status=" + status + ", pro_type=" + pro_type
 				+ ", createdBy=" + createdBy + ", createdDate=" + createdDate + ", endDate=" + endDate + ", explain="
-				+ explain + ", confirmedBy=" + confirmedBy + ", chargeBy" + chargeBy + "]";
+				+ explain + ", confirmedBy=" + confirmedBy + ", chargeBy=" + chargeBy + "]";
 	}
 	
 }
