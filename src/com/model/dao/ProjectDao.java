@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.model.bean.DemandBean;
 import com.model.bean.ProjectBean;
 /**
  * 未测试，以此句为准
@@ -62,6 +63,35 @@ public class ProjectDao extends BaseDao{
 				
 				System.out.println(project.toString());
 				list.add(project);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	//查找一个项目下的所有需求
+	public ArrayList<DemandBean> findDemandByProject(String id){
+		ArrayList<DemandBean> list = new ArrayList<DemandBean>();
+		String sql="select * from demand where demand_id =?";
+		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			ResultSet rst = pstmt.executeQuery();
+			while (rst.next()) {
+				DemandBean demand = new DemandBean();
+				demand.setId(rst.getString("id"));
+				demand.setName(rst.getString("name"));
+				demand.setStatus(rst.getString("status"));
+				demand.setCreatedBy(rst.getString("createdBy"));
+				demand.setCreatedDate(rst.getString("createdDate"));
+				demand.setEndDate(rst.getString("endDate"));
+				demand.setExplain(rst.getString("explain"));
+				demand.setLastEditedDate(rst.getString("lastEditedDate"));
+				demand.setConfirmedBy(rst.getString("confirmedBy"));
+				demand.setProject_id(rst.getString("project_id"));
+				demand.setChargeBy(rst.getString("chargeBy"));
+				demand.setBugNum(rst.getInt("bugNum"));
+				list.add(demand);
+				System.out.println(demand.toString());
 			}
 			return list;
 		} catch (SQLException e) {

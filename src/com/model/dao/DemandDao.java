@@ -10,6 +10,7 @@ import java.util.Date;
 import java.text.SimpleDateFormat;
 
 import com.model.bean.DemandBean;
+import com.model.bean.TaskBean;
 
 /**
  * 未测试
@@ -39,7 +40,37 @@ public class DemandDao extends BaseDao{
     	return bugNum;
     }
     
+    //--------------------------------------------------------------------------------------------------------
+    public ArrayList<TaskBean> findTaskByDemand(String id){
+    	ArrayList<TaskBean> list = new ArrayList<TaskBean>();
+    	String sql="select * from task where demand_id =?";
+    	try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			ResultSet rst = pstmt.executeQuery();
+			while (rst.next()) {
+				TaskBean task = new TaskBean();
+				task.setId(rst.getString("id"));
+				task.setName(rst.getString("name"));
+				task.setStatus(rst.getString("status"));
+				task.setCreatedBy(rst.getString("createdBy"));
+				task.setEndDate(rst.getString("endDate"));
+				task.setExplain(rst.getString("explain"));
+				task.setLastEditedBy(rst.getString("lastEditedBy"));
+				task.setLastEditedDate(rst.getString("lastEditedDate"));
+				task.setConfirmedBy(rst.getString("confirmedBy"));
+				task.setDemand_id(rst.getString("demand_id"));
+				task.setChargeBy(rst.getString("chargeBy"));
+				task.setBugNum(rst.getInt("bugNum"));
+				list.add(task);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+    }
     
+    //---------------------------------------------------------------------------------------------
 	public ArrayList<DemandBean> findAllDemand() {
 		ArrayList<DemandBean> list = new ArrayList<DemandBean>();
 		String sql = "SELECT * FROM demand ";

@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.model.bean.ProductBean;
+import com.model.bean.ProjectBean;
 
 import java.util.Date;
 import java.text.SimpleDateFormat;
@@ -37,7 +38,40 @@ public class ProductDao extends BaseDao{
     	return bugNum;
     }
 
+	public ArrayList<ProjectBean> findProjectByProduct(String id){
+		ArrayList<ProjectBean> list= new ArrayList<ProjectBean>();
+		String sql="select * from project where prod_id = ?";
+		try(Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)){
+			pstmt.setString(1, id);
+			ResultSet rst =pstmt.executeQuery();
+			while(rst.next()){
+				ProjectBean project = new ProjectBean();
+				project.setId(rst.getString("id"));
+				project.setName(rst.getString("name"));
+				project.setStatus(rst.getString("status"));
+				project.setCreatedBy(rst.getString("createdBy"));
+				project.setCreatedDate(rst.getString("createdDate"));
+				project.setEndDate(rst.getString("endDate"));
+				project.setExplain(rst.getString("explain"));
+				project.setTeam(rst.getString("team"));
+				project.setConfirmedBy(rst.getString("confirmedBy"));
+				project.setProd_id(rst.getString("prod_id"));
+				project.setChargeBy(rst.getString("chargeBy"));
+				project.setBugNum(rst.getInt("bugNum"));
+				
+				System.out.println(project.toString());
+				list.add(project);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+			}
+		
+	}
 	
+	//------------------------------------------------------------------
 	public ArrayList<ProductBean> findAllProduct() {
 		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
 		String sql = "SELECT * FROM product ";
