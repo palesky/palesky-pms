@@ -46,6 +46,7 @@ public class DemandDao extends BaseDao{
     	String sql="select * from task where demand_id =?";
     	try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    		pstmt.setString(1, id);
 			ResultSet rst = pstmt.executeQuery();
 			while (rst.next()) {
 				TaskBean task = new TaskBean();

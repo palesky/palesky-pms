@@ -75,6 +75,7 @@ public class ProjectDao extends BaseDao{
 		ArrayList<DemandBean> list = new ArrayList<DemandBean>();
 		String sql="select * from demand where demand_id =?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, id);
 			ResultSet rst = pstmt.executeQuery();
 			while (rst.next()) {
 				DemandBean demand = new DemandBean();

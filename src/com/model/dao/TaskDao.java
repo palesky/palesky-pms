@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
+import com.model.bean.BugBean;
 import com.model.bean.ProductBean;
 import com.model.bean.TaskBean;
 import com.model.bean.Task_developerBean;
@@ -73,6 +74,38 @@ public class TaskDao extends BaseDao{
 			return null;
 		}
 	}
+    
+    //---------------------------------------------------------------------------
+    public ArrayList<BugBean> findBugByTask(String id){
+    	ArrayList<BugBean> list=new ArrayList<BugBean>();
+    	String sql="select * from bug where task_testerId in(select id from task_tester where id in(select id from task where=? ))";
+    	try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+    		pstmt.setString(1, id);
+			ResultSet rst = pstmt.executeQuery();
+			while (rst.next()) {
+				BugBean bug = new BugBean();
+				bug.setId(rst.getString("id"));
+				bug.setName(rst.getString("name"));
+				bug.setStatus(rst.getString("status"));
+				bug.setBug_type(rst.getString("bug_type"));
+				bug.setOs(rst.getString("os"));
+				bug.setBrowser(rst.getString("browser"));
+				bug.setFoundBy(rst.getString("foundBy"));
+				bug.setFoundDate(rst.getString("foundDate"));
+				bug.setPriority(rst.getString("priority"));
+				bug.setSteps(rst.getString("steps"));
+				bug.setUsecaseId(rst.getString("usecaseId"));
+				bug.setTask_testerId(rst.getString("task_testerId"));
+				bug.setChargeBy(rst.getString("chargeBy"));
+				list.add(bug);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+    }
     //---------------------------------------------------------------------------
     
     //*************    获取 当前任务的bug总数
