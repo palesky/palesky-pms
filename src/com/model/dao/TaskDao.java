@@ -77,6 +77,7 @@ public class TaskDao extends BaseDao{
 	}
     
     //---------------------------------------------------------------------------
+    //查找所有一个任务下的bug
     public ArrayList<BugBean> findBugByTask(String id){
     	ArrayList<BugBean> list=new ArrayList<BugBean>();
     	String sql="select * from bug where task_testerId in(select id from task_tester where taskId =?)";
@@ -107,14 +108,15 @@ public class TaskDao extends BaseDao{
 			return null;
 		}
     }
-    
     //---------------------------------------------------------------------------
-    public ArrayList<UsecaseBean> findUsecaseByTask(String id){
-    	ArrayList<UsecaseBean> list =new ArrayList<UsecaseBean>();
-    	String sql="select * from usecase where id in (select usecaseId from bug where task_testerId in (select id from task_tester where taskId=?))";
-    	try (Connection conn = dataSource.getConnection(); 
+    //通过task 找 用例
+    public ArrayList<UsecaseBean> findUsecaseByTask(String taskId) {
+		
+		ArrayList<UsecaseBean> list = new ArrayList<UsecaseBean>();
+		String sql = "SELECT * FROM usecase where id in(select usecaseId from task_usecase where taskId =? )";
+		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
-    		pstmt.setString(1, id);
+			pstmt.setString(1, taskId);
 			ResultSet rst = pstmt.executeQuery();
 			while (rst.next()) {
 				UsecaseBean usecase = new UsecaseBean();
@@ -130,7 +132,8 @@ public class TaskDao extends BaseDao{
 			e.printStackTrace();
 			return null;
 		}
-    }
+	}
+  
     //---------------------------------------------------------------------------
     
     //*************    获取 当前任务的bug总数
