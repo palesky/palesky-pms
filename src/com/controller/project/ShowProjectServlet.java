@@ -1,4 +1,4 @@
-package com.controller.product;
+package com.controller.project;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
