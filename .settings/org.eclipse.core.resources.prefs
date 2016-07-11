@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/WEB-INF/part/breadcrumb.html=UTF-8
 encoding//src/com/filter/LoginFilter.java=UTF-8
 encoding//src/com/model/bean/UserBean.java=UTF-8
 encoding//src/com/model/dao/BaseDao.java=UTF-8
