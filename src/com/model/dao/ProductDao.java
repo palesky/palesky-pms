@@ -126,7 +126,7 @@ public class ProductDao extends BaseDao{
 			ResultSet rst = pstmt.executeQuery();
 			while (rst.next()) {				
 				ProductBean product = new ProductBean();
-
+                
 				product.setId(rst.getString("id"));
 				product.setName(rst.getString("name"));
 				product.setStatus(rst.getString("status"));
