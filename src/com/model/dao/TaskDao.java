@@ -133,6 +133,29 @@ public class TaskDao extends BaseDao{
 			return null;
 		}
 	}
+    //---------------------------------------------------------------------------
+    public ArrayList<UsecaseBean> findUsecaseByUser(String userid){
+    	ArrayList<UsecaseBean> list = new ArrayList<UsecaseBean>();
+    	String sql="select * from usecase where id in(select usecaseId from task_tester where taskId in(select taskId from task_tester where userId =?))";
+    	try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, userid);
+			ResultSet rst = pstmt.executeQuery();
+			while (rst.next()) {
+				UsecaseBean usecase = new UsecaseBean();
+				usecase.setId(rst.getString("id"));
+				usecase.setUsecaseLibId(rst.getString("usecaseLibId"));
+				usecase.setCreatedBy(rst.getString("createdBy"));
+				usecase.setCreatedDate(rst.getString("createdDate"));
+				usecase.setSteps(rst.getString("steps"));
+				list.add(usecase);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+    }
   
     //---------------------------------------------------------------------------
     
