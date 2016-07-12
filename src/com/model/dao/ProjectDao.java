@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import com.model.bean.DemandBean;
 import com.model.bean.ProjectBean;
+import com.model.bean.UserBean;
 /**
  * 未测试，以此句为准
  * @author xj
@@ -63,8 +64,90 @@ public class ProjectDao extends BaseDao{
 			}
 		}
 	 
-	 //---------------------------------------------------------------------
-	public ArrayList<ProjectBean> findAllProject() {
+	    //---------------------------------------------------------------------
+	    public ArrayList<ProjectBean> SearchProject(String key) {
+			ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
+			String sql = "SELECT * FROM project where id like ? or name like ? or status like ?";
+			try (Connection conn = dataSource.getConnection(); 
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				pstmt.setString(1, "%"+key+"%");
+				pstmt.setString(2, "%"+key+"%");
+				pstmt.setString(3, "%"+key+"%");
+				ResultSet rst = pstmt.executeQuery();
+				while (rst.next()) {
+					ProjectBean project = new ProjectBean();
+					project.setId(rst.getString("id"));
+					project.setName(rst.getString("name"));
+					project.setStatus(rst.getString("status"));
+					project.setCreatedBy(rst.getString("createdBy"));
+					project.setCreatedDate(rst.getString("createdDate"));
+					project.setEndDate(rst.getString("endDate"));
+					project.setExplain(rst.getString("explain"));
+					project.setTeam(rst.getString("team"));
+					project.setConfirmedBy(rst.getString("confirmedBy"));
+					project.setProd_id(rst.getString("prod_id"));
+					project.setChargeBy(rst.getString("chargeBy"));
+					project.setBugNum(rst.getInt("bugNum"));
+					
+					System.out.println(project.toString());
+					list.add(project);
+				}
+				return list;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+	    //-----------------------------------------------------------------------------
+	    public ArrayList<String> findTeam(){
+	    	ArrayList<String> list = new ArrayList<String>();
+	    	String sql="select distinct team from project";
+	    	try (Connection conn = dataSource.getConnection(); 
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				ResultSet rst = pstmt.executeQuery();
+				while(rst.next()){
+					String team = rst.getString("team");
+				    list.add(team);
+				}
+				return list;
+	    	} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+	    }
+	    //------------------------------------------------------------------------------
+	    public ArrayList<UserBean> findTeamMember(String id){
+	    	ArrayList<UserBean> list= new ArrayList<UserBean>();
+	    	String sql ="select * from where belongTo =?";
+	    	try (Connection conn = dataSource.getConnection(); 
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	    		pstmt.setString(1, id);
+	    		ResultSet rst = pstmt.executeQuery();
+	    		while(rst.next()){
+	    			UserBean UserBean = new UserBean();
+					UserBean.setId(rst.getString("id"));
+					UserBean.setAccount(rst.getString("account"));
+					UserBean.setPassword(rst.getString("password"));
+					UserBean.setRealname(rst.getString("realname"));
+					UserBean.setGender(rst.getString("gender"));
+					UserBean.setRole(rst.getString("role"));
+					UserBean.setEmail(rst.getString("email"));
+					UserBean.setPhone(rst.getString("phone"));
+					UserBean.setIp(rst.getString("lastIp"));
+					UserBean.setLastLogin(rst.getString("lastLogin"));
+					UserBean.setVisits(rst.getInt("visit"));
+					UserBean.setPrivilege(rst.getString("privilege"));
+					UserBean.setBelongTo(rst.getString("belongTo"));
+					list.add(UserBean);
+	    		}return list;
+	    	}catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+	    	
+	    }
+	    //------------------------------------------------------------------------------
+    	public ArrayList<ProjectBean> findAllProject() {
 		ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
 		String sql = "SELECT * FROM project ";
 		try (Connection conn = dataSource.getConnection(); 

@@ -70,7 +70,39 @@ public class DemandDao extends BaseDao{
 			return null;
 		}
     }
-    
+    //---------------------------------------------------------------------------------------------
+    public ArrayList<DemandBean> SearchDemand(String key) {
+		ArrayList<DemandBean> list = new ArrayList<DemandBean>();
+		String sql = "SELECT * FROM demand where id like ? or name like ? or status like ?";
+		try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1,"%"+key+"%");
+			pstmt.setString(2,"%"+key+"%");
+			pstmt.setString(3,"%"+key+"%");
+			ResultSet rst = pstmt.executeQuery();
+			while (rst.next()) {
+				DemandBean demand = new DemandBean();
+				demand.setId(rst.getString("id"));
+				demand.setName(rst.getString("name"));
+				demand.setStatus(rst.getString("status"));
+				demand.setCreatedBy(rst.getString("createdBy"));
+				demand.setCreatedDate(rst.getString("createdDate"));
+				demand.setEndDate(rst.getString("endDate"));
+				demand.setExplain(rst.getString("explain"));
+				demand.setLastEditedDate(rst.getString("lastEditedDate"));
+				demand.setConfirmedBy(rst.getString("confirmedBy"));
+				demand.setProject_id(rst.getString("project_id"));
+				demand.setChargeBy(rst.getString("chargeBy"));
+				demand.setBugNum(rst.getInt("bugNum"));
+				list.add(demand);
+				System.out.println(demand.toString());
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
     //---------------------------------------------------------------------------------------------
 	public ArrayList<DemandBean> findAllDemand() {
 		ArrayList<DemandBean> list = new ArrayList<DemandBean>();
