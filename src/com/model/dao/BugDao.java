@@ -114,4 +114,20 @@ public class BugDao extends BaseDao{
 			return false;
 		}
 	}
+	
+	public boolean ChangeMan(String id,String userid){
+		String sql="update bug set chargeby =? where id=?";
+		try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1,userid);
+			pstmt.setString(2, id);
+			pstmt.executeUpdate();
+			return true;
+		}catch (SQLException se) {
+			se.printStackTrace();
+			return false;
+		}
+		
+	}
+			
 }
