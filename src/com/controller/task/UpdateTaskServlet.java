@@ -39,7 +39,7 @@ public class UpdateTaskServlet extends HttpServlet {
 		String explain = request.getParameter("explain");
 		String confirmedBy = request.getParameter("confirmedBy");
 		String chargeBy = request.getParameter("chargeBy");
-
+		String demand_id=request.getParameter("demand_id");
 		if (id == null || name == null || status == null || createdBy == null
 				|| endDate == null || explain == null || confirmedBy == null || chargeBy == null) {
 			System.out.println("错误");
@@ -54,6 +54,7 @@ public class UpdateTaskServlet extends HttpServlet {
 		task.setExplain(explain);
 		task.setConfirmedBy(confirmedBy);
 		task.setChargeBy(chargeBy);
+		task.setDemand_id(demand_id);
 		TaskDao dao=new TaskDao();
 		if(dao.updateTask(task)){
 			System.out.println("修改成功");

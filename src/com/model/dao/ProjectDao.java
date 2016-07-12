@@ -375,6 +375,7 @@ public class ProjectDao extends BaseDao{
 		
 		String sql = "update project set id=?,name=?,status=?,endDate=?,`explain`=?,team=?,confirmedBy=?,chargeBy=? where id=?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, project.getId());
 			pstmt.setString(2, project.getName());
 			pstmt.setString(3, project.getStatus());
 			pstmt.setString(4, project.getEndDate());

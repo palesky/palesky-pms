@@ -126,14 +126,7 @@ public class ProductDao extends BaseDao{
 			ResultSet rst = pstmt.executeQuery();
 			while (rst.next()) {				
 				ProductBean product = new ProductBean();
-//				String statu=rst.getString("status");
-//				String time =rst.getString("endDate");
-//				Date endTime = java.sql.Date.valueOf(time);
-//				Date now=new java.sql.Date(new java.util.Date().getTime());
-//				if(statu.equals("进行中") && endTime.before(now))
-//				{
-//					statu="已延期";
-//				}					
+
 				product.setId(rst.getString("id"));
 				product.setName(rst.getString("name"));
 				product.setStatus(rst.getString("status"));

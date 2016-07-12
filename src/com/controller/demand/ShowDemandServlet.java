@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.model.bean.UserBean;
 import com.model.dao.TaskDao;
 import com.model.dao.DemandDao;
+import com.model.dao.ProjectDao;
 import com.model.dao.DemandDao;
 
 /**
@@ -41,7 +42,11 @@ public class ShowDemandServlet extends HttpServlet {
 				UserBean user=(UserBean)request.getSession().getAttribute("user");
 				DemandDao demandDao = new DemandDao();
 				TaskDao taskDao = new TaskDao();
-
+				
+				//用于关联项目与产品，所以给出项目列表，会在新建或更新时用到
+				ProjectDao projectDao=new ProjectDao();
+				request.setAttribute("projectList",projectDao.findAllProject());
+				
 				String q = "";
 				if(request.getParameter("q")==null)
 					q="";

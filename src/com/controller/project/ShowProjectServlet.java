@@ -1,6 +1,8 @@
 package com.controller.project;
 
 import java.io.IOException;
+import java.text.ParseException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.model.bean.UserBean;
 import com.model.dao.DemandDao;
+import com.model.dao.ProductDao;
 import com.model.dao.ProjectDao;
 import com.model.dao.ProjectDao;
 
@@ -42,6 +45,16 @@ public class ShowProjectServlet extends HttpServlet {
 				ProjectDao pj = new ProjectDao();
 				DemandDao dd = new DemandDao();
 
+				//用于关联项目与产品，所以给出产品列表，会在新建或更新时用到
+				ProductDao productDao=new ProductDao();
+				try {
+					request.setAttribute("productList",productDao.findAllProduct());
+					request.setAttribute("teamList", pj.findTeam());
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				String q = "";
 				if(request.getParameter("q")==null)
 					q="";
