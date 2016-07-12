@@ -129,7 +129,8 @@ public class ProductDao extends BaseDao{
 				ProductBean product = new ProductBean();
 				String statu=rst.getString("status");
 				String time =rst.getString("endDate");
-				Date endTime = formatter.parse(time);
+//				Date endTime = formatter.parse(time);
+				Date endTime = java.sql.Date.valueOf(time);
 				String a="进行中";
 				Date now=new java.sql.Date(new java.util.Date().getTime());
 				if(statu.equals(a) && endTime.before(now) )

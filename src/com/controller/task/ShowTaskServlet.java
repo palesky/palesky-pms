@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.model.bean.UserBean;
 import com.model.dao.BugDao;
+import com.model.dao.DemandDao;
+import com.model.dao.ProjectDao;
 import com.model.dao.TaskDao;
 import com.model.dao.UsecaseDao;
 
@@ -42,6 +44,11 @@ public class ShowTaskServlet extends HttpServlet {
 		TaskDao taskDao = new TaskDao();
 		UsecaseDao usecaseDao = new UsecaseDao();
 		BugDao bugDao=new BugDao();
+		
+		//用于关联任务与需求，所以给出需求列表，会在新建或更新时用到
+		DemandDao demandDao = new DemandDao();
+		request.setAttribute("demandList",demandDao.findAllDemand());
+		
 		String q = "";
 		if(request.getParameter("q")==null)
 			q="";

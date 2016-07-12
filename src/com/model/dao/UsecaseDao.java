@@ -77,6 +77,7 @@ public class UsecaseDao extends BaseDao{
 	public boolean updateUsecase(UsecaseBean usecase) {
 		String sql = "update usecase set id=?,usecaseLibId=?,steps=? where id=?";
 		try (Connection conn = dataSource.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1, usecase.getId());
 			pstmt.setString(2, usecase.getUsecaseLibId());
 			pstmt.setString(3, usecase.getSteps());
 			pstmt.setString(4, usecase.getId());

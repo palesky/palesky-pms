@@ -1,6 +1,8 @@
 package com.controller.product;
 
 import java.io.IOException;
+import java.text.ParseException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -50,7 +52,12 @@ public class ShowProductServlet extends HttpServlet {
 		if (q.equals("all") || q.equals("")) {
 			request.setAttribute("list_group_title", "产品列表");
 			request.setAttribute("list_group_title2", "和我有关的项目");
-			request.setAttribute("itemList", pd.findAllProduct());
+			try {
+				request.setAttribute("itemList", pd.findAllProduct());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			request.setAttribute("itemList2", pj.findMyChargeProject(user.getId()));
 			request.setAttribute("itemType", "产品");
 			request.setAttribute("itemType2", "项目");

@@ -39,6 +39,7 @@ public class AddTaskServlet extends HttpServlet {
 		String explain=request.getParameter("explain");
 		String confirmedBy=request.getParameter("confirmedBy");
 		String chargeBy=request.getParameter("chargeBy");
+		String demand_id=request.getParameter("demand_id");
 		
 		TaskBean task=new TaskBean();
 		
@@ -51,7 +52,7 @@ public class AddTaskServlet extends HttpServlet {
 		task.setExplain(explain);
 		task.setConfirmedBy(confirmedBy);
 		task.setChargeBy(chargeBy);
-		
+		task.setDemand_id(demand_id);
 		System.out.println(task.toString());
 		
 		TaskDao taskDao=new TaskDao();

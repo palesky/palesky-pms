@@ -39,7 +39,7 @@ public class AddDemandServlet extends HttpServlet {
 		String explain=request.getParameter("explain");
 		String confirmedBy=request.getParameter("confirmedBy");
 		String chargeBy=request.getParameter("chargeBy");
-		
+		String project_id=request.getParameter("project_id");
 		DemandBean demand=new DemandBean();
 		
 		demand.setId(id);
@@ -51,6 +51,7 @@ public class AddDemandServlet extends HttpServlet {
 		demand.setExplain(explain);
 		demand.setConfirmedBy(confirmedBy);
 		demand.setChargeBy(chargeBy);
+		demand.setProject_id(project_id);
 		
 		System.out.println(demand.toString());
 		

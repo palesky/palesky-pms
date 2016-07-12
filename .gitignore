@@ -4,3 +4,15 @@
 *.xml
 
 
+
+WebContent/META-INF/context.xml
+
+*.class
+
+build/classes/com/controller/product/ShowProductServlet.class
+
+build/classes/com/controller/task/ShowTaskServlet.class
+
+build/classes/com/controller/product/ShowProductServlet.class
+
+build/classes/com/controller/project/ShowProjectServlet.class

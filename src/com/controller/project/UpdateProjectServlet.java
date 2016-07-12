@@ -39,8 +39,9 @@ public class UpdateProjectServlet extends HttpServlet {
 		String explain = request.getParameter("explain");
 		String confirmedBy = request.getParameter("confirmedBy");
 		String chargeBy = request.getParameter("chargeBy");
-
-		if (id == null || name == null || status == null || createdBy == null
+		String team=request.getParameter("team");
+		String prod_id=request.getParameter("pro_id");
+		if (id == null || name == null || status == null || createdBy == null ||team==null ||prod_id==null
 				|| endDate == null || explain == null || confirmedBy == null || chargeBy == null) {
 			System.out.println("错误");
 		}
@@ -54,6 +55,8 @@ public class UpdateProjectServlet extends HttpServlet {
 		project.setExplain(explain);
 		project.setConfirmedBy(confirmedBy);
 		project.setChargeBy(chargeBy);
+		project.setTeam(team);
+		project.setProd_id(prod_id);
 		ProjectDao dao=new ProjectDao();
 		if(dao.updateProject(project)){
 			System.out.println("修改成功");

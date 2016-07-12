@@ -39,6 +39,8 @@ public class AddProjectServlet extends HttpServlet {
 		String explain=request.getParameter("explain");
 		String confirmedBy=request.getParameter("confirmedBy");
 		String chargeBy=request.getParameter("chargeBy");
+		String team=request.getParameter("team");
+		String prod_id=request.getParameter("pro_id");
 		
 		ProjectBean project=new ProjectBean();
 		
@@ -51,6 +53,8 @@ public class AddProjectServlet extends HttpServlet {
 		project.setExplain(explain);
 		project.setConfirmedBy(confirmedBy);
 		project.setChargeBy(chargeBy);
+		project.setTeam(team);
+		project.setProd_id(prod_id); 
 		
 		System.out.println(project.toString());
 		
