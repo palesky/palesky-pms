@@ -255,7 +255,7 @@ public class ProjectDao extends BaseDao{
 			pstmt.setString(3, project.getStatus());
 			pstmt.setString(4, project.getCreatedBy());
 			pstmt.setDate(5, new java.sql.Date(new java.util.Date().getTime()));
-			pstmt.setString(6, project.getEndDate());
+			pstmt.setDate(6, new java.sql.Date(new java.util.Date().getTime()));
 			pstmt.setString(7, project.getExplain());
 			pstmt.setString(8, project.getTeam());
 			pstmt.setString(9, project.getConfirmedBy());

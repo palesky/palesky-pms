@@ -245,18 +245,18 @@ public class TaskDao extends BaseDao{
 	//-------------------------------------------------------------------------------------
 	//增加 任务
 	public boolean addTask(TaskBean task) {
-		Date d=new Date();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
-		String dateNowStr =sdf.format(d);
-		String sql = "INSERT INTO task(id,name,status,createdBy,createdDate,endDate,`explain`,lastEditedBy,lastEditedDate,confirmedBy,demand_id,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+//		Date d=new Date();
+//		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
+//		String dateNowStr =sdf.format(d);
+		String sql = "INSERT INTO task(id,name,status,createdBy,createdDate,endDate,`explain`,lastEditedBy,lastEditedDate,confirmedBy,demand_id,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, task.getId());
 			pstmt.setString(2, task.getName());
 			pstmt.setString(3, task.getStatus());
 			pstmt.setString(4, task.getCreatedBy());
-			pstmt.setString(5, dateNowStr);
-			pstmt.setString(6, task.getEndDate());
+			pstmt.setDate(5, new java.sql.Date(new java.util.Date().getTime()));
+			pstmt.setDate(6, new java.sql.Date(new java.util.Date().getTime()));
 			pstmt.setString(7, task.getExplain());
 			pstmt.setString(8, task.getLastEditedBy());
 			pstmt.setString(9, task.getLastEditedDate());

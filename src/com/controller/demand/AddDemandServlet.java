@@ -1,4 +1,4 @@
-package com.controller.product;
+package com.controller.demand;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,26 +7,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.model.bean.ProductBean;
-import com.model.dao.ProductDao;
+import com.model.bean.DemandBean;
+import com.model.dao.DemandDao;
 
 /**
- * Servlet implementation class AddProductServlet
+ * Servlet implementation class AddDemandServlet
  */
-@WebServlet("/addproduct")
-public class AddProductServlet extends HttpServlet {
+@WebServlet("/adddemand")
+public class AddDemandServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddProductServlet() {
+    public AddDemandServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * 
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,31 +33,30 @@ public class AddProductServlet extends HttpServlet {
 		String id=request.getParameter("id");
 		String name=request.getParameter("name");
 		String status=request.getParameter("status");
-		String pro_type=request.getParameter("pro_type");
+//		String pro_type=request.getParameter("pro_type");
 		String createdBy=request.getParameter("createdBy");
 		String endDate=request.getParameter("endDate");
 		String explain=request.getParameter("explain");
 		String confirmedBy=request.getParameter("confirmedBy");
 		String chargeBy=request.getParameter("chargeBy");
 		
-		ProductBean product=new ProductBean();
+		DemandBean demand=new DemandBean();
 		
-		product.setId(id);
-		product.setName(name);
-		product.setStatus(status);
-		product.setPro_type(pro_type);
-		product.setCreatedBy(createdBy);
-		product.setEndDate(endDate);
-		product.setExplain(explain);
-		product.setConfirmedBy(confirmedBy);
-		product.setChargeBy(chargeBy);
+		demand.setId(id);
+		demand.setName(name);
+		demand.setStatus(status);
+//		demand.setPro_type(pro_type);
+		demand.setCreatedBy(createdBy);
+		demand.setEndDate(endDate);
+		demand.setExplain(explain);
+		demand.setConfirmedBy(confirmedBy);
+		demand.setChargeBy(chargeBy);
 		
-		System.out.println(product.toString());
+		System.out.println(demand.toString());
 		
-		ProductDao productDao=new ProductDao();
-		productDao.addProduct(product);
-		response.sendRedirect("product?q="+id);
-		
+		DemandDao demandDao=new DemandDao();
+		demandDao.addDemand(demand);
+		response.sendRedirect("demand?q="+id);
 	}
 
 	/**

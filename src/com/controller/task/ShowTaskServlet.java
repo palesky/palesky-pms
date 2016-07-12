@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.model.bean.UserBean;
-import com.model.dao.ProductDao;
-import com.model.dao.ProjectDao;
+import com.model.dao.BugDao;
+import com.model.dao.TaskDao;
+import com.model.dao.UsecaseDao;
 
 /**
  * Servlet implementation class ShowTaskServlet
@@ -38,45 +39,52 @@ public class ShowTaskServlet extends HttpServlet {
 		request.removeAttribute("itemList");
 		request.removeAttribute("list_group_title");
 		UserBean user=(UserBean)request.getSession().getAttribute("user");
-		ProductDao pd = new ProductDao();
-		ProjectDao pj = new ProjectDao();
-
+		TaskDao taskDao = new TaskDao();
+		UsecaseDao usecaseDao = new UsecaseDao();
+		BugDao bugDao=new BugDao();
 		String q = "";
 		if(request.getParameter("q")==null)
 			q="";
 		else
 			q=request.getParameter("q");
 		if (q.equals("all") || q.equals("")) {
-			request.setAttribute("list_group_title", "产品列表");
-			request.setAttribute("list_group_title2", "和我有关的项目");
-			request.setAttribute("itemList", pd.findAllProduct());
-			request.setAttribute("itemList2", pj.findMyChargeProject(user.getId()));
-			request.setAttribute("itemType", "产品");
-			request.setAttribute("itemType2", "项目");
-			request.setAttribute("url", "product");
-			request.setAttribute("url2", "project");
+			request.setAttribute("list_group_title", "任务列表");
+			request.setAttribute("list_group_title2", "和我有关的测试");
+			request.setAttribute("list_group_title3", "和我有关的bug");
+			request.setAttribute("itemList", taskDao.findAllTask());
+			request.setAttribute("itemList2", usecaseDao.findAllUsecase());
+			request.setAttribute("itemType", "任务");
+			request.setAttribute("itemType2", "测试");
+			request.setAttribute("itemType3", "bug");
+			request.setAttribute("url", "task");
+			request.setAttribute("url2", "usecase");
+			request.setAttribute("url3", "bug");
 			
-			request.getRequestDispatcher("product.jsp").forward(request, response);
+			request.getRequestDispatcher("task.jsp").forward(request, response);
 		} else if (q.equals("me")) {
-			request.setAttribute("list_group_title", "和我有关的产品");
-			request.setAttribute("list_group_title2", "和我有关的项目");
-			request.setAttribute("itemList", pd.findMyChargeProduct(user.getId()));
-			request.setAttribute("itemList2", pj.findMyChargeProject(user.getId()));
-			request.setAttribute("itemType", "产品");
-			request.setAttribute("itemType2", "项目");
-			request.setAttribute("url", "product");
-			request.setAttribute("url2", "project");
+			request.setAttribute("list_group_title", "和我有关的任务");
+			request.setAttribute("list_group_title2", "和我有关的测试");
+			request.setAttribute("list_group_title3", "和我有关的bug");
+			request.setAttribute("itemList", taskDao.findMyChargedTask(user.getId()));
+			request.setAttribute("itemList2",usecaseDao.findAllUsecase());
+			request.setAttribute("itemList3",bugDao.findAllBug());
+			request.setAttribute("itemType", "任务");
+			request.setAttribute("itemType2", "测试");
+			request.setAttribute("itemType3", "bug");
+			request.setAttribute("url", "task");
+			request.setAttribute("url2", "usecase");
+			request.setAttribute("url3", "bug");
 			
-			request.getRequestDispatcher("product.jsp").forward(request, response);
-		} else {//特定的产品
-			request.setAttribute("list_group_title3", "产品列表");
-			request.setAttribute("item", pd.getProduct(q));
-			request.setAttribute("itemList", pj.findAllProject());
-			request.setAttribute("itemType", "产品");
-			request.setAttribute("url", "product");
-			request.setAttribute("sonUrl", "project");
+			request.getRequestDispatcher("task.jsp").forward(request, response);
+		} else {//特定的任务
+			request.setAttribute("list_group_title3", "任务列表");
+			request.setAttribute("item", taskDao.getTask(q));
+			request.setAttribute("itemList", usecaseDao.findAllUsecase());
+			request.setAttribute("itemType", "任务");
+			request.setAttribute("url", "task");
+			request.setAttribute("sonUrl", "usecase");
 			
-			request.getRequestDispatcher("productInfo.jsp").forward(request, response);
+			request.getRequestDispatcher("taskInfo.jsp").forward(request, response);
 		}
 
 	}

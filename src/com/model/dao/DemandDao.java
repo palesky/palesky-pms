@@ -220,19 +220,19 @@ public class DemandDao extends BaseDao{
 
 	
 	public boolean addDemand(DemandBean demand) {
-		Date d=new Date();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
-		String dateNowStr =sdf.format(d);
+//		Date d=new Date();
+//		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-mm-dd");
+//		String dateNowStr =sdf.format(d);
 		
-		String sql = "INSERT INTO demand(id,name,status,createdBy,createdDate,endDate,`explain`,lastEditedDate,confirmedBy,project_id,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO demand(id,name,status,createdBy,createdDate,endDate,`explain`,lastEditedDate,confirmedBy,project_id,chargeBy,bugNum)VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			pstmt.setString(1, demand.getId());
 			pstmt.setString(2, demand.getName());
 			pstmt.setString(3, demand.getStatus());
 			pstmt.setString(4, demand.getCreatedBy());
-			pstmt.setString(5, dateNowStr);
-			pstmt.setString(6, demand.getEndDate());
+			pstmt.setDate(5, new java.sql.Date(new java.util.Date().getTime()));
+			pstmt.setDate(6, new java.sql.Date(new java.util.Date().getTime()));
 			pstmt.setString(7, demand.getExplain());
 			pstmt.setString(8, dateNowStr);
 			pstmt.setString(9, demand.getConfirmedBy());

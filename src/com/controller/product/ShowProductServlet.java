@@ -72,7 +72,7 @@ public class ShowProductServlet extends HttpServlet {
 		} else {//特定的产品
 			request.setAttribute("list_group_title3", "产品列表");
 			request.setAttribute("item", pd.getProduct(q));
-			request.setAttribute("itemList", pj.findAllProject());
+			request.setAttribute("itemList", pd.findProjectByProduct(q));
 			request.setAttribute("itemType", "产品");
 			request.setAttribute("url", "product");
 			request.setAttribute("sonUrl", "project");

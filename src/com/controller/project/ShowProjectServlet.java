@@ -51,7 +51,7 @@ public class ShowProjectServlet extends HttpServlet {
 					request.setAttribute("list_group_title", "项目列表");
 					request.setAttribute("list_group_title2", "和我有关的需求");
 					request.setAttribute("itemList", pj.findAllProject());
-					request.setAttribute("itemList2", dd.findAllDemand());
+					request.setAttribute("itemList2", dd.findMyChargeDemand(user.getId()));
 					request.setAttribute("itemType", "项目");
 					request.setAttribute("itemType2", "需求");
 					request.setAttribute("url", "project");
@@ -62,7 +62,7 @@ public class ShowProjectServlet extends HttpServlet {
 					request.setAttribute("list_group_title", "和我有关的项目");
 					request.setAttribute("list_group_title2", "和我有关的需求");
 					request.setAttribute("itemList", pj.findMyChargeProject(user.getId()));
-					request.setAttribute("itemList2", dd.findAllDemand());
+					request.setAttribute("itemList2", dd.findMyChargeDemand(user.getId()));
 					request.setAttribute("itemType", "项目");
 					request.setAttribute("itemType2", "需求");
 					request.setAttribute("url", "project");
