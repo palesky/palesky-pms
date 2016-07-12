@@ -181,6 +181,39 @@ public class TaskDao extends BaseDao{
     }
     
     //--------------------------------------------------------------------------------
+    public ArrayList<TaskBean> SearchTask(String key) {
+		
+		ArrayList<TaskBean> list = new ArrayList<TaskBean>();
+		String sql = "SELECT * FROM task like ? or name like ? or status like ?";
+		try (Connection conn = dataSource.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql)) {
+			pstmt.setString(1,"%"+key+"%");
+			pstmt.setString(2,"%"+key+"%");
+			pstmt.setString(3,"%"+key+"%");
+			ResultSet rst = pstmt.executeQuery();
+			while (rst.next()) {
+				TaskBean task = new TaskBean();
+				task.setId(rst.getString("id"));
+				task.setName(rst.getString("name"));
+				task.setStatus(rst.getString("status"));
+				task.setCreatedBy(rst.getString("createdBy"));
+				task.setEndDate(rst.getString("endDate"));
+				task.setExplain(rst.getString("explain"));
+				task.setLastEditedBy(rst.getString("lastEditedBy"));
+				task.setLastEditedDate(rst.getString("lastEditedDate"));
+				task.setConfirmedBy(rst.getString("confirmedBy"));
+				task.setDemand_id(rst.getString("demand_id"));
+				task.setChargeBy(rst.getString("chargeBy"));
+				task.setBugNum(rst.getInt("bugNum"));
+				list.add(task);
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+    //--------------------------------------------------------------------------------
 	public ArrayList<TaskBean> findAllTask() {
 		
 		ArrayList<TaskBean> list = new ArrayList<TaskBean>();

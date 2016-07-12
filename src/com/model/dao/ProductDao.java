@@ -72,6 +72,40 @@ public class ProductDao extends BaseDao{
 	}
 	
 	//------------------------------------------------------------------
+		public ArrayList<ProductBean> SearchProduct(String key) {
+			ArrayList<ProductBean> list = new ArrayList<ProductBean>();
+			String sql = "SELECT * FROM product where id like ? or name like ? or status like ? or pro_type like ?";
+			try (Connection conn = dataSource.getConnection(); 
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				pstmt.setString(1,"%"+key+"%");
+				pstmt.setString(2,"%"+key+"%");
+				pstmt.setString(3,"%"+key+"%");
+				pstmt.setString(4,"%"+key+"%");
+				ResultSet rst = pstmt.executeQuery();
+				while (rst.next()) {
+					ProductBean product = new ProductBean();
+					product.setId(rst.getString("id"));
+					product.setName(rst.getString("name"));
+					product.setStatus(rst.getString("status"));
+					product.setPro_type(rst.getString("pro_type"));
+					product.setCreatedBy(rst.getString("createdBy"));
+					product.setCreatedDate(rst.getString("createdDate"));
+					product.setEndDate(rst.getString("endDate"));
+					product.setExplain(rst.getString("explain"));
+					product.setConfirmedBy(rst.getString("confirmedBy"));
+					product.setChargeBy(rst.getString("chargeBy"));
+					product.setBugNum(rst.getInt("bugNum"));
+					list.add(product);
+				}
+				return list;
+			} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}
+		
+		
+	//------------------------------------------------------------------
 	public ArrayList<ProductBean> findAllProduct() {
 		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
 		String sql = "SELECT * FROM product ";
