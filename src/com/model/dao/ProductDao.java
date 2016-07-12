@@ -8,8 +8,10 @@ import java.util.ArrayList;
 
 import com.model.bean.ProductBean;
 import com.model.bean.ProjectBean;
+import com.sun.org.apache.xerces.internal.util.Status;
 
 import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
@@ -72,7 +74,7 @@ public class ProductDao extends BaseDao{
 	}
 	
 	//------------------------------------------------------------------
-		public ArrayList<ProductBean> SearchProduct(String key) {
+		public ArrayList<ProductBean> SearchProduct(String key) throws ParseException {
 			ArrayList<ProductBean> list = new ArrayList<ProductBean>();
 			String sql = "SELECT * FROM product where id like ? or name like ? or status like ? or pro_type like ?";
 			try (Connection conn = dataSource.getConnection(); 
@@ -83,6 +85,16 @@ public class ProductDao extends BaseDao{
 				pstmt.setString(4,"%"+key+"%");
 				ResultSet rst = pstmt.executeQuery();
 				while (rst.next()) {
+					java.text.SimpleDateFormat   formatter   = new   SimpleDateFormat( "yyyy-MM-dd ");
+					String statu=rst.getString("status");
+					String time =rst.getString("endDate");
+					Date endTime = formatter.parse(time);
+					String a="进行中";
+					Date now=new java.sql.Date(new java.util.Date().getTime());
+					if(statu.equals(a) && endTime.before(now) )
+					{
+						statu="已延期";
+					}
 					ProductBean product = new ProductBean();
 					product.setId(rst.getString("id"));
 					product.setName(rst.getString("name"));
@@ -106,17 +118,28 @@ public class ProductDao extends BaseDao{
 		
 		
 	//------------------------------------------------------------------
-	public ArrayList<ProductBean> findAllProduct() {
+	public ArrayList<ProductBean> findAllProduct() throws ParseException {
 		ArrayList<ProductBean> list = new ArrayList<ProductBean>();
 		String sql = "SELECT * FROM product ";
 		try (Connection conn = dataSource.getConnection(); 
 				PreparedStatement pstmt = conn.prepareStatement(sql)) {
 			ResultSet rst = pstmt.executeQuery();
 			while (rst.next()) {
+				java.text.SimpleDateFormat   formatter   = new   SimpleDateFormat( "yyyy-MM-dd ");
 				ProductBean product = new ProductBean();
+				String statu=rst.getString("status");
+				String time =rst.getString("endDate");
+				Date endTime = formatter.parse(time);
+				String a="进行中";
+				Date now=new java.sql.Date(new java.util.Date().getTime());
+				if(statu.equals(a) && endTime.before(now) )
+				{
+					statu="已延期";
+				}
+					
 				product.setId(rst.getString("id"));
 				product.setName(rst.getString("name"));
-				product.setStatus(rst.getString("status"));
+				product.setStatus(statu);
 				product.setPro_type(rst.getString("pro_type"));
 				product.setCreatedBy(rst.getString("createdBy"));
 				product.setCreatedDate(rst.getString("createdDate"));

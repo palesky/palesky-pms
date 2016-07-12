@@ -266,7 +266,7 @@ public class DemandDao extends BaseDao{
 			pstmt.setDate(5, new java.sql.Date(new java.util.Date().getTime()));
 			pstmt.setDate(6, new java.sql.Date(new java.util.Date().getTime()));
 			pstmt.setString(7, demand.getExplain());
-			pstmt.setString(8, dateNowStr);
+			pstmt.setDate(8, new java.sql.Date(new java.util.Date().getTime()));
 			pstmt.setString(9, demand.getConfirmedBy());
 			pstmt.setString(10, demand.getProject_id());
 			pstmt.setString(11, demand.getChargeBy());
