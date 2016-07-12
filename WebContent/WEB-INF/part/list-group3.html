@@ -11,9 +11,14 @@ pageEncoding="UTF-8"%>
 <div class="col-lg-9">
 	<div class="panel panel-default">
 		<!-- Default panel contents -->
-		<div class="panel-heading">${item.name}<button style="margin-left:6px; margin-top:5px;" class="pull-right btn btn-primary " data-toggle="modal"
-				data-target="#showUpdateModal">修改</button><button style="margin-top:5px;" class="pull-right btn btn-primary " data-toggle="modal"
-				data-target="#delete">删除</button></div>
+		<div class="panel-heading">
+			${item.name}
+			<button style="margin-left: 6px; margin-top: 5px;"
+				class="pull-right btn btn-primary " data-toggle="modal"
+				data-target="#showUpdateModal">修改</button>
+			<button style="margin-top: 5px;" class="pull-right btn btn-primary "
+				data-toggle="modal" data-target="#delete">删除</button>
+		</div>
 		<div class="panel-body">
 			<p>${item.explain}</p>
 		</div>
@@ -60,21 +65,23 @@ pageEncoding="UTF-8"%>
 
 					<div class="form-group">
 						<label for="exampleInputEmail1">${itemType}编号</label> <input
-							type="text" class="form-control" name="id" placeholder="输入编号" value="${item.id}">
+							type="text" class="form-control" name="id" placeholder="输入编号"
+							value="${item.id}">
 					</div>
 
 					<div class="form-group">
 						<label for="exampleInputEmail1">${itemType}名称</label> <input
-							type="text" class="form-control" name="name" placeholder="输入名称" value="${item.name}">
+							type="text" class="form-control" name="name" placeholder="输入名称"
+							value="${item.name}">
 					</div>
 
 					<div class="form-group">
 						<label for="exampleInputEmail1">${itemType}简介</label>
-						<textarea class="form-control" rows="5" name="explain" value="${item.explain}"></textarea>
+						<textarea class="form-control" rows="5" name="explain"
+							value="${item.explain}"></textarea>
 					</div>
 
 					<input type="hidden" name="status" value="待审核">
-
 					<div class="form-group">
 						<div class="row">
 							<c:if test="${itemType=='产品'}">
@@ -94,6 +101,48 @@ pageEncoding="UTF-8"%>
 						</div>
 					</div>
 
+					<c:if test="${itemType=='项目'}">
+						<div class="form-group input-group">
+							<span class="input-group-addon">所属团队</span> <select name="team" class="form-control">
+								<c:forEach var="item" items="${requestScope.teamList}">
+									<option value="item">${item}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</c:if>
+
+					<c:if test="${itemType=='项目'}">
+						<div class="form-group input-group">
+							<span class="input-group-addon">所属产品</span> <select name="pro_id" class="form-control">
+								<c:forEach var="item" items="${requestScope.productList}">
+									<option value="item.id">${item.name}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</c:if>
+
+					<c:if test="${itemType=='需求'}">
+						<div class="form-group input-group">
+							<span class="input-group-addon">所属项目</span> <select
+								name="project_id" class="form-control">
+								<c:forEach var="item" items="${requestScope.projectList}" >
+									<option value="item.id">${item.name}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</c:if>
+
+					<c:if test="${itemType=='任务'}">
+						<div class="form-group input-group">
+							<span class="input-group-addon">所属需求</span> <select
+								name="demand_id" class="form-control">
+								<c:forEach var="item" items="${requestScope.demandList}">
+									<option value="item.id">${item.name}</option>
+								</c:forEach>
+							</select>
+						</div>
+					</c:if>
+
 					<div class="form-group">
 						<label for="exampleInputEmail1">结束日期</label> <input type="text"
 							class="form-control" name="endDate"
@@ -105,7 +154,8 @@ pageEncoding="UTF-8"%>
 							<div class="col-sm-6">
 								<label for="exampleInputEmail1">指派给</label> <select
 									name="chargeBy">
-									<c:forEach var="chargedMan" items="${sessionScope.chargedByList}">
+									<c:forEach var="chargedMan"
+										items="${sessionScope.chargedByList}">
 										<option value="${chargedMan.id}">${chargedMan.role}${chargedMan.realname}</option>
 									</c:forEach>
 								</select>
@@ -113,7 +163,8 @@ pageEncoding="UTF-8"%>
 							<div class="col-sm-6">
 								<label for="exampleInputEmail1">审核者</label> <select
 									name="confirmedBy">
-									<c:forEach var="confirmedMan" items="${sessionScope.confirmedByList}">
+									<c:forEach var="confirmedMan"
+										items="${sessionScope.confirmedByList}">
 										<option value="${confirmedMan.id}">${confirmedMan.role}${confirmedMan.realname}</option>
 									</c:forEach>
 								</select>
@@ -131,21 +182,25 @@ pageEncoding="UTF-8"%>
 	</div>
 </div>
 
-<div class="modal fade" id="delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">确认删除？</h4>
-      </div>
-      <div class="modal-footer">
-      <form action="delete${url}">
-      <input type="hidden" name="id" value="${item.id}">
-      <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-        <button type="submit" class="btn btn-primary">确认</button>
-      </form>
-        
-      </div>
-    </div>
-  </div>
+<div class="modal fade" id="delete" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">确认删除？</h4>
+			</div>
+			<div class="modal-footer">
+				<form action="delete${url}">
+					<input type="hidden" name="id" value="${item.id}">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button type="submit" class="btn btn-primary">确认</button>
+				</form>
+
+			</div>
+		</div>
+	</div>
 </div>
