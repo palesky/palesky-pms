@@ -1,6 +1,7 @@
 package com.model.dao;
 
 import java.sql.Connection;
+import com.model.bean.UserBean;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 
@@ -39,7 +40,54 @@ public class ProjectDao extends BaseDao{
 	    	return bugNum;
 	    }
 	
-	 
+	 //-----------------------------------------------------------------------------
+	    public ArrayList<String> findTeam(){
+	    	ArrayList<String> list = new ArrayList<String>();
+	    	String sql="select distinct team from project";
+	    	try (Connection conn = dataSource.getConnection(); 
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				ResultSet rst = pstmt.executeQuery();
+				while(rst.next()){
+					String team = rst.getString("team");
+				    list.add(team);
+				}
+				return list;
+	    	} catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+	    }
+	    //------------------------------------------------------------------------------
+	    public ArrayList<UserBean> findTeamMember(String id){
+	    	ArrayList<UserBean> list= new ArrayList<UserBean>();
+	    	String sql ="select * from where belongTo =?";
+	    	try (Connection conn = dataSource.getConnection(); 
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	    		pstmt.setString(1, id);
+	    		ResultSet rst = pstmt.executeQuery();
+	    		while(rst.next()){
+	    			UserBean UserBean = new UserBean();
+					UserBean.setId(rst.getString("id"));
+					UserBean.setAccount(rst.getString("account"));
+					UserBean.setPassword(rst.getString("password"));
+					UserBean.setRealname(rst.getString("realname"));
+					UserBean.setGender(rst.getString("gender"));
+					UserBean.setRole(rst.getString("role"));
+					UserBean.setEmail(rst.getString("email"));
+					UserBean.setPhone(rst.getString("phone"));
+					UserBean.setIp(rst.getString("lastIp"));
+					UserBean.setLastLogin(rst.getString("lastLogin"));
+					UserBean.setVisits(rst.getInt("visit"));
+					UserBean.setPrivilege(rst.getString("privilege"));
+					UserBean.setBelongTo(rst.getString("belongTo"));
+					list.add(UserBean);
+	    		}return list;
+	    	}catch (SQLException e) {
+				e.printStackTrace();
+				return null;
+			}
+	    	
+	    }
 	 //------  关联 项目到 产品
 	 public boolean MatchProjectToProduct(String id,String prod_id) {
 			
