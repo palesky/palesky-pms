@@ -42,6 +42,8 @@ public class LoginServlet extends HttpServlet {
 		
 		String account = request.getParameter("username");
 		String password = request.getParameter("password");
+		System.out.print("username");
+		System.out.print("password");
 
 		UserDao d = new UserDao();
 		UserBean user = d.getUser(account);
@@ -50,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 		request.getSession().setAttribute("chargedByList",d.findAllChargedMan());
 		request.getSession().setAttribute("confirmedByList",d.findAllConfirmeddMan());
 		
-		System.out.println(user.toString());
+		//System.out.println(user.toString());
 		if (user == null||user.getPassword()==null) {
 			System.out.println("无该用户");
 			response.sendRedirect("login.jsp");

@@ -39,6 +39,30 @@ public class ProjectDao extends BaseDao{
 	    	return bugNum;
 	    }
 	
+	 
+	 //------  关联 项目到 产品
+	 public boolean MatchProjectToProduct(String id,String prod_id) {
+			
+			String sql = "update project prod_id =? where id=?";
+			try (Connection conn = dataSource.getConnection(); 
+					PreparedStatement pstmt = conn.prepareStatement(sql)) {
+				ProjectBean project = new ProjectBean();
+				pstmt.setString(2, project.getName());
+				pstmt.setString(3, project.getStatus());
+				pstmt.setString(4, project.getEndDate());
+				pstmt.setString(5, project.getExplain());
+				pstmt.setString(6, project.getTeam());
+				pstmt.setString(7, project.getConfirmedBy());
+				pstmt.setString(8, project.getChargeBy());
+				pstmt.setString(9, project.getId());
+				pstmt.executeUpdate();
+				return true;
+			} catch (SQLException se) {
+				se.printStackTrace();
+				return false;
+			}
+		}
+	 
 	 //---------------------------------------------------------------------
 	public ArrayList<ProjectBean> findAllProject() {
 		ArrayList<ProjectBean> list = new ArrayList<ProjectBean>();
